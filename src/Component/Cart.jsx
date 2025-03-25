@@ -3,7 +3,7 @@ import PopularProduct from './PopularProduct'
 import Footer from './Footer'
 import Header from './Header'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,6 +12,7 @@ const Cart = () => {
     const [cart, setCart] = useState([]);
     const [games, setGames] = useState({});
     const [id, setid] = useState(null)
+    const navigate = useNavigate("/")
 
     useEffect(() => {
         if (cart.length === 0) fetchCart();  // ✅ Prevents re-fetching after first event
@@ -79,6 +80,7 @@ const Cart = () => {
             handleCheckDelete();
             toast.success("Your Ticket Booking Success")
             setCart([])
+            navigate('/checkout')
         } catch (error) {
             console.error("Error during checkout", error);
             toast.error("Failed to place order. Please try again.");
@@ -195,10 +197,9 @@ const Cart = () => {
                                                                             </button>
                                                                         </td>
                                                                     </tr>
-                                                                </>
+                                                                </>       
                                                             ))
                                                         }
-
                                                     </tbody >
                                                 </table>
                                             </div>

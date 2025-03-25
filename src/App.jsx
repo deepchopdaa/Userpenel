@@ -12,12 +12,13 @@ import Cart from "./Component/Cart.jsx";
 import PopularProduct from "./Component/PopularProduct.jsx";
 import Testlogin from "./Component/Testlogin.js"
 import Game from "./Component/Games.js";
+import Checkout from "./Component/Checkout.js";
+import ReturnPage from "./Component/ReturnPayment.js";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
@@ -47,6 +48,14 @@ function App() {
     {
       path: "/product",
       element: <ProductDetail />,
+    },
+    {
+      path:"/checkout",
+      element:<Checkout/>
+    },
+    {
+      path:"/return",
+      element:<ReturnPage/>
     },
     {
       path: "/cart",

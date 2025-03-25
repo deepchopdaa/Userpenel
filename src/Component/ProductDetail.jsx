@@ -8,7 +8,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Feedback from 'react-bootstrap/esm/Feedback';
+import { jwtDecode } from 'jwt-decode';
 
 const ProductDetail = () => {
     const location = useLocation();
@@ -47,6 +47,26 @@ const ProductDetail = () => {
             .max(10, "Maximum 10 tickets allowed")
             .required("Please enter the number of tickets"),
     });
+
+
+    const [token, settoken] = useState(localStorage.getItem("token"));
+    const Expiryverify =()=> {
+        console.log("Token verify useEffect")
+        if (token) {
+            const decordetoken = jwtDecode(token);
+            const expiry = decordetoken.exp;
+            console.log(expiry)
+            console.log(decordetoken , "<-- decode Token --->")
+            const currenttime1 = Math.floor(Date.now() / 1000);
+            console.log(currenttime1 , "<-- current time -->")
+            if (currenttime1 > expiry) {
+                console.log('Token Expried')
+                toast.error("Your Token is Expried")
+                localStorage.removeItem('token');
+                settoken(null)
+            }
+        }
+    }
 
     const Reviews = async () => {
         await axios.get("http://localhost:3100/review/getuserreview").then((review) => {
@@ -452,8 +472,9 @@ const ProductDetail = () => {
                                         };
 
                                         /* alert(`Ticket booked for ${values.timeSlot} on ${values.date}\nTotal: ₹${values.totalAmount}`); */
-                                        const token = localStorage.getItem("token");
-                                        if (token) {
+                                        const token1 = localStorage.getItem("token");
+                                        if (token1) {
+                                            Expiryverify()
 
                                             axios.post("http://localhost:3100/cart/addcart", bookingDetails, {
                                                 headers: {
