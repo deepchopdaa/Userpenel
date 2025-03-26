@@ -50,15 +50,15 @@ const ProductDetail = () => {
 
 
     const [token, settoken] = useState(localStorage.getItem("token"));
-    const Expiryverify =()=> {
+    const Expiryverify = () => {
         console.log("Token verify useEffect")
         if (token) {
             const decordetoken = jwtDecode(token);
             const expiry = decordetoken.exp;
             console.log(expiry)
-            console.log(decordetoken , "<-- decode Token --->")
+            console.log(decordetoken, "<-- decode Token --->")
             const currenttime1 = Math.floor(Date.now() / 1000);
-            console.log(currenttime1 , "<-- current time -->")
+            console.log(currenttime1, "<-- current time -->")
             if (currenttime1 > expiry) {
                 console.log('Token Expried')
                 toast.error("Your Token is Expried")
@@ -449,7 +449,6 @@ const ProductDetail = () => {
                                     aria-label="Close"
                                 ></button>
                             </div>
-
                             <div className="modal-body">
                                 <Formik
                                     initialValues={{
@@ -461,7 +460,6 @@ const ProductDetail = () => {
                                     validationSchema={validationSchema}
                                     onSubmit={(values, { resetForm }) => {
                                         console.log("Booking Details:", values);
-
                                         const bookingDetails = {
                                             Game_id: id,
                                             ticket: values.ticketCount,
@@ -471,10 +469,10 @@ const ProductDetail = () => {
                                             date: values.date
                                         };
 
+                                        Expiryverify()
                                         /* alert(`Ticket booked for ${values.timeSlot} on ${values.date}\nTotal: ₹${values.totalAmount}`); */
                                         const token1 = localStorage.getItem("token");
                                         if (token1) {
-                                            Expiryverify()
 
                                             axios.post("http://localhost:3100/cart/addcart", bookingDetails, {
                                                 headers: {
