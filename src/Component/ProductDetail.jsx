@@ -3,12 +3,18 @@ import PopularProduct from './PopularProduct'
 import Footer from './Footer'
 import Header from './Header'
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import Datetime from 'react-datetime';
+import "react-datetime/css/react-datetime.css";
 import * as Yup from "yup";
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { jwtDecode } from 'jwt-decode';
+import DateTimePicker from 'react-datetime-picker';
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
 
 const ProductDetail = () => {
     const location = useLocation();
@@ -20,7 +26,7 @@ const ProductDetail = () => {
     const [amount, setamount] = useState(null)
     const [time_slot, settime_slot] = useState(null)
     const navigate = useNavigate("/")
-
+    const [date, setdate] = useState(Date.now)
     const [gamereview, setgamereview] = useState([]);
     const [reviews, setreviews] = useState();
     const [reviewcount, setreviewcount] = useState(0);
@@ -36,12 +42,31 @@ const ProductDetail = () => {
 
     /* Date and time Validation */
 
-    const today = new Date().toISOString().split("T")[0];
-    const now = new Date()
-    const currentTime = now.toTimeString().slice(0, 5)
+    const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
+    const now = new Date();
+    const currentTime = now.toTimeString().slice(0, 5); // Get current time in HH:MM format
+
+    const MIN_TIME = "09:00"; // 9:00 AM
+    const MAX_TIME = "21:00"; // 9:00 PM
+
     const validationSchema = Yup.object().shape({
-        date: Yup.string().required("Please select a date"), // New validation for date
-        timeSlot: Yup.string().required("Please select a time slot"),
+        date: Yup.string()
+            .required("Please select a date")
+            .test("is-future-date", "Date must be today or in the future", (value) => {
+                return value >= today; // Ensures the selected date is today or later
+            }),
+        timeSlot: Yup.string()
+            .required("Please select a time slot")
+            .test("is-valid-time", "Time must be between 9:00 AM and 9:00 PM", (value) => {
+                return value >= MIN_TIME && value <= MAX_TIME; // Ensures time is between 9 AM - 9 PM
+            })
+            .test("is-future-time", "Time must be later than the current time", function (value) {
+                const selectedDate = this.parent.date; // Get the selected date
+                if (selectedDate === today) {
+                    return value > currentTime; // Ensures time is greater than now if today
+                }
+                return true; // Allow any valid time for future dates
+            }),
         ticketCount: Yup.number()
             .min(1, "At least 1 ticket is required")
             .max(10, "Maximum 10 tickets allowed")
@@ -536,8 +561,9 @@ const ProductDetail = () => {
                                                 className="form-control"
                                                 name="timeSlot"
                                                 value={values.timeSlot}
-                                                min={currentTime}
+
                                             />
+                                            <ErrorMessage name="timeSlot" component="div" className="text-danger" />
                                             {/* Number of Tickets */}
                                             <div className="mb-3 mt-3">
                                                 <label className="form-label">Number of Tickets: </label>
@@ -571,8 +597,10 @@ const ProductDetail = () => {
                                                 Add To Ticket
                                             </button>
                                         </Form>
+
                                     )}
                                 </Formik>
+                                {/*  <Datetime />; */}
                             </div>
                         </div>
                     </div>

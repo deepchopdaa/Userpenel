@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { alignPropType } from 'react-bootstrap/esm/types';
+import { height } from '@fortawesome/free-solid-svg-icons/fa0';
 
 const HeroSlider = () => {
     /*  const [isLoaded, setIsLoaded] = useState(false); */
@@ -14,11 +15,13 @@ const HeroSlider = () => {
         }, []); */
 
     const [slides, setslides] = useState([]);
+    const [title, settitle] = useState();
     const GetSlider = () => {
         axios.get("http://localhost:3100/slider/getimage")
             .then((slide) => {
                 console.log(slide.data)
                 setslides(slide.data)
+                settitle(slide.data)
             })
             .catch((e) => {
                 console.log("Slider Getting Error", e)
@@ -32,7 +35,7 @@ const HeroSlider = () => {
         infinite: true,
         speed: 600,
         slidesToShow: 1,
-        slidesToScroll: 1,
+        slidesToScroll: 1,  
         autoplay: true,
         autoplaySpeed: 3000,
         arrows: true
@@ -41,28 +44,51 @@ const HeroSlider = () => {
    */
     return (
         <>
-            <div style={{position:"relative"}}>
-
+            <div style={{ position: "relative" }}>
                 <Slider {...settings}>
                     {
                         slides?.map((item) => (
                             <>
-                                <div style={{ height: '700px', width: '100%'}}>
-                                    <img src={`http://localhost:3100/${item.image}`} height='700px' width='100%' alt='image not found' />
+                                <div style={{ height: '700px', width: '100%' }}>
+                                    <div>
+                                        <img src={`http://localhost:3100/${item.image}`} style={{objectFit:"cover"}} height='700px' width='100%' alt='image not found' />
+                                    </div>
+                                    <div style={{ height: "100px", position: "absolute", marginTop: "-300px", marginLeft: "100px", color: "white" }}>
+                                        <h2>{item.title}</h2>
+                                        <p>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet reiciendis
+                                            beatae consequuntur.
+                                        </p>
+                                        <div className="cr-last-buttons w-25">
+                                            <Link to="/game" className="cr-button">
+                                                Explore
+                                            </Link>
+                                        </div>
+                                    </div>
                                 </div>
                             </>
-                        ))
+                        ))  
                     }
                 </Slider>
+                {/* {
+                    slides?.map((item) => (
+                        <>
+                            <div style={{ position: "absolute", color: 'white', width: "500px", marginTop: "-300px", marginLeft: "200px" }}>
+                                <h5><span>100%</span> Enjoyment</h5>
 
-                <div style={{ position: "absolute" }}>
-                    <h3>gvkjrg</h3>
-                    <div className="cr-last-buttons w-100">
-                        <Link to="/game" className="cr-button">
-                            Explore
-                        </Link>
-                    </div>
-                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet reiciendis
+                                    beatae consequuntur.
+                                </p>
+                                <div className="cr-last-buttons w-100">
+                                    <Link to="/game" className="cr-button">
+                                        Explore
+                                    </Link>
+                                </div>
+                            </div>
+                        </>
+                    ))
+                } */}
 
             </div>
             {/* <div className="container">
@@ -89,7 +115,6 @@ const HeroSlider = () => {
                     <div class="swiper-wrapper">
                         {slides?.map((slide, index) => {
                             const fixedImagePath = slide.image.replace(/\\/g, "/"); // Fix backslashes
-
                             return (
                                 <div key={index} className="swiper-slide">
                                     <div
@@ -128,10 +153,8 @@ const HeroSlider = () => {
                                 </div>
                             );
                         })}
-
                     </div>
                 </div>
-              
             </section > */}
         </>
     );

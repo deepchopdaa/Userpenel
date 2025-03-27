@@ -3,7 +3,8 @@ import React from 'react'
 const Category = () => {
     return (
         <>
-            <section className="section-categories padding-b-100">
+            
+            <section className="section-categories mt-5 padding-b-100">
                 <div className="container">
                     <div className="row mb-minus-24">
                         <div className="col-lg-4 col-12 mb-24">

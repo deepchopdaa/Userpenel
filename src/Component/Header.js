@@ -13,7 +13,7 @@ const Header = () => {
     }
     return (
         <>
-            <header className="bg-dark text-white py-2">
+            <header className="bg-dark text-white text-nowrap py-2">
                 <div className="container">
                     <div className="d-flex align-items-center justify-content-between">
                         {/* Logo */}
