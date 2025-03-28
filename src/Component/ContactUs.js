@@ -26,10 +26,10 @@ const ContactUs = () => {
                     /* "Content-Type": "multipart/form-data", */
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
-            }).then((data)=>{   
+            }).then((data) => {
                 console.log(data);
-                toast.success("Contact Form Submited Successfully Please Check Your");
-            }).catch((e)=>{
+                toast.success("Contact Form Submited Successfully Please Check Your Email");
+            }).catch((e) => {
                 toast.error("Data Is Not Submited")
             })
             resetForm(); // Reset form after submission
@@ -42,7 +42,7 @@ const ContactUs = () => {
             <Header />
             <div>
                 {/* Breadcrumb */}
-              {/*   <section className="section-breadcrumb">
+                {/*   <section className="section-breadcrumb">
                     <div className="cr-breadcrumb-image">
                         <div className="container">
                             <div className="row">
@@ -109,9 +109,9 @@ const ContactUs = () => {
                                     </div>
                                     <div className="cr-info-content">
                                         <h4 className="heading">Address</h4>
-                                        <p><a href="javascript:void(0)"><i className="ri-map-pin-line" /> &nbsp; 140 Ruami Moraes
+                                        <p><a href="javascript:void(0)"><i className="ri-map-pin-lisne" /> &nbsp; 140 Ruami Moraes
                                             Filho,
-                                            987 - mumbai- MA, 40352, INDIA   .</a></p>
+                                            987 - mumbai- MA, 40352, INDIA .</a></p>
                                     </div>
                                 </div>
                             </div>

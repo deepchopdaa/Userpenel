@@ -12,7 +12,7 @@ const PopularProduct = () => {
         AOS.init({ duration: 1000, delay: 200, once: false });
         AOS.refresh();
     }, []);
-
+    
 
     const [game, setgame] = useState(null);
     const navigate = useNavigate("/")
@@ -29,11 +29,11 @@ const PopularProduct = () => {
                 settings: {
                     slidesToShow: 3,
                 }
-            },  
+            },
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 1,
                 }
             }
         ]
@@ -68,6 +68,7 @@ const PopularProduct = () => {
                         </div>
                     </div>
 
+                     
                     <Slider {...settings}>
                         {
                             game?.map((item) => (
