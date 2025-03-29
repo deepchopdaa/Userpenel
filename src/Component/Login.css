@@ -1,0 +1,120 @@
+/* 🎮 Gaming-Themed Login Page */
+.login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #0d0d0d;
+  }
+  
+  .login-container {
+    width: 400px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.12);
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 255, 255, 0.5);
+    text-align: center;
+    backdrop-filter: blur(15px);
+  }
+  
+  .login-title {
+    color: #00ffcc;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 0px 0px 8px rgba(0, 255, 255, 0.7);
+  }
+  
+  /* Form Styling */
+  .login-form {
+    text-align: left;
+  }
+  
+  .login-form-group {
+    margin-bottom: 15px;
+  }
+  
+  .login-label {
+    color: #e0e0e0;
+    font-size: 14px;
+  }
+  
+  .login-input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 14px;
+  }
+  
+  .login-input::placeholder {
+    color: #cccccc;
+  }
+  
+  /* Error Message Styling */
+  .login-error {
+    color: #ff6666;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Remember & Forgot Password Section */
+  .login-remember {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .login-remember label {
+    color: #bbbbbb;
+  }
+  
+  .login-link {
+    color: #00ffcc;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .login-link:hover {
+    text-shadow: 0px 0px 5px rgba(0, 255, 255, 0.6);
+  }
+  
+  /* Buttons */
+  .login-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .login-button {
+    background: linear-gradient(90deg, #00ffcc, #00b3a0);
+    border: none;
+    padding: 12px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #0d0d0d;
+    transition: 0.3s;
+  }
+  
+  .login-button:hover {
+    background: linear-gradient(90deg, #00b3a0, #00ffcc);
+    box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.8);
+  }
+  
+  /* Signup Link */
+  .login-signup-link {
+    color: #00ffcc;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .login-signup-link:hover {
+    text-shadow: 0px 0px 5px rgba(0, 255, 255, 0.7);
+  }
+  

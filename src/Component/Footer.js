@@ -3,7 +3,7 @@ import React from 'react'
 const Footer = () => {
     return (
         <>
-            <footer className=" text-white pt-5 pb-4" style={{ backgroundColor: "rgb(22 11 68)" }}>
+            <footer className=" text-white pt-5 pb-4 footer">
                 <div className="container">
                     <div className="row">
 

@@ -12,7 +12,7 @@ const PopularProduct = () => {
         AOS.init({ duration: 1000, delay: 200, once: false });
         AOS.refresh();
     }, []);
-    
+
 
     const [game, setgame] = useState(null);
     const navigate = useNavigate("/")
@@ -62,13 +62,12 @@ const PopularProduct = () => {
                         <div className="col-lg-12">
                             <div className="mb-30">
                                 <div className="cr-banner">
-                                    <h2>Popular Games</h2>
+                                    <h2 className='text-light'>Popular Games</h2>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                     
                     <Slider {...settings}>
                         {
                             game?.map((item) => (
@@ -101,7 +100,6 @@ const PopularProduct = () => {
                                         <p className="cr-price"><span className="new-price">₹{item.price}</span> </p>
                                     </div>
                                 </div>
-
                             ))
                         }
                     </Slider>

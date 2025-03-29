@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import AOS from "aos";
 import "aos/dist/aos.css";
 import 'react-toastify/dist/ReactToastify.css';
-
+import "./Login.css"
 
 
 
@@ -43,7 +43,7 @@ const Login = () => {
             }
         } catch (e) {
             console.log(e);
-            toast.error("User Not Login Successfully"); 
+            toast.error("User Not Login Successfully");
         }
     };
     return (
@@ -57,7 +57,7 @@ const Login = () => {
             <Review />
             <Footer /> */}
             {/* Breadcrumb */}
-            <section className="section-breadcrumb">
+            {/* <section className="section-breadcrumb">
                 <div className="cr-breadcrumb-image">
                     <div className="container">
                         <div className="row">
@@ -67,22 +67,19 @@ const Login = () => {
                                     <span>
                                         <Link to="/">Home</Link> - Login
                                     </span>
-                                </div>
+                                </div>s
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-
+            </section> */}
             {/* Login Section */}
-            <section className="section-login padding-tb-100">
+            <section className="login-section">
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <div
-                                className="cr-login"
-                                data-aos="fade-up"
-                            >
+                            <div className="login-container" data-aos="fade-up">
+                                <h3 className="login-title">🎮 Login</h3>
                                 <Formik
                                     initialValues={{
                                         email: "",
@@ -90,46 +87,48 @@ const Login = () => {
                                         remember: false,
                                     }}
                                     validationSchema={Yup.object({
-                                        email: Yup.string().email("Invalid email format").required("Required email"),
-                                        password: Yup.string().min(6, "Password must be at least 6 characters").required("Required password"),
+                                        email: Yup.string()
+                                            .email("Invalid email format")
+                                            .required("Required email"),
+                                        password: Yup.string()
+                                            .min(6, "Password must be at least 6 characters")
+                                            .required("Required password"),
                                     })}
                                     onSubmit={handleLogin}
                                 >
                                     {({ handleSubmit }) => (
-                                        <Form className="cr-content-form" onSubmit={handleSubmit}>
-                                            <div className="form-group">
-                                                <label>Email Address*</label>
+                                        <Form className="login-form" onSubmit={handleSubmit}>
+                                            <div className="login-form-group">
+                                                <label className="login-label">Email Address*</label>
                                                 <Field
                                                     type="email"
                                                     name="email"
                                                     placeholder="Enter Your Email"
-                                                    className="cr-form-control"
+                                                    className="login-input"
                                                 />
-                                                <ErrorMessage name="email" component="div" className="text-danger" />
+                                                <ErrorMessage name="email" component="div" className="login-error" />
                                             </div>
-                                            <div className="form-group">
-                                                <label>Password*</label>
+                                            <div className="login-form-group">
+                                                <label className="login-label">Password*</label>
                                                 <Field
                                                     type="password"
                                                     name="password"
                                                     placeholder="Enter Your Password"
-                                                    className="cr-form-control"
+                                                    className="login-input"
                                                 />
-                                                <ErrorMessage name="password" component="div" className="text-danger" />
+                                                <ErrorMessage name="password" component="div" className="login-error" />
                                             </div>
-                                            <div className="remember">
-                                                <span className="form-group custom">
+                                            <div className="login-remember">
+                                                <span className="login-form-group custom">
                                                     <Field type="checkbox" name="remember" id="remember" />
-                                                    <label htmlFor="remember">Remember Me</label>
+                                                    <label htmlFor="remember"> Remember Me</label>
                                                 </span>
-                                                <Link to="/forgot" className="link">Forgot Password?</Link>
+                                                <Link to="/forgot" className="login-link">Forgot Password?</Link>
                                             </div>
                                             <br />
                                             <div className="login-buttons">
-                                                <button type="submit" className="cr-button">
-                                                    Login
-                                                </button>
-                                                <Link to="/register">Signup</Link>
+                                                <button type="submit" className="login-button">Login</button>
+                                                <Link to="/register" className="login-signup-link">Signup</Link>
                                             </div>
                                         </Form>
                                     )}
@@ -139,6 +138,7 @@ const Login = () => {
                     </div>
                 </div>
             </section>
+
 
             {/* Toast Notifications */}
             <ToastContainer />

@@ -47,7 +47,7 @@ const Review = () => {
         speed: 800,
         slidesToShow: 4,
         slidesToScroll: 1,
-        autoplay: true,
+        // autoplay: true,
         autoplaySpeed: 3000,
         arrows: false,
         responsive: [
@@ -79,8 +79,8 @@ const Review = () => {
         <section className="section-testimonial py-5">
             <div className="container">
                 <div className="text-center mb-4">
-                    <h2 className="text-dark">What Gamers Say</h2>
-                    <p className="text-dark">Real experiences from our gaming community</p>
+                    <h2 className="text-light">What Gamers Say</h2>
+                    <p className="text-light">Real experiences from our gaming community</p>
                 </div>
 
                 {loading && <p className="text-center text-dark">Loading reviews...</p>}
@@ -89,8 +89,8 @@ const Review = () => {
                 {!loading && !error && reviews.length > 0 && (
                     <Slider {...settings}>
                         {reviews.map((review, index) => (
-                            <div key={index} className="p-3">
-                                <div className="cr-testimonial bg-light p-4 rounded shadow text-center">
+                            <div key={index} className="p-3 review-item">
+                                <div className="cr-testimonial bg-light p-4 rounded shadow text-center" style={{maxHeight:"200px", minHeight:"150px",contain:"content"}}>
                                     {/* <div className="cr-testimonial-image mb-3">
                                         <img
                                             src={review.image || "assets/img/testimonial/default.jpg"}

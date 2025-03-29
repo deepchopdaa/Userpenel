@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Product = () => {
     const [id, setid] = useState(null);
     const [categoty, setcategory] = useState(null);
+    const [categotyActive, setCategotyActive] = useState(null);
     const [game, setgame] = useState(null);
     const navigate = useNavigate("/")
 
@@ -23,8 +24,9 @@ const Product = () => {
         })
     }
 
-    const CategoryVise = (id) => {
-        axios.get(`http://localhost:3100/game/getCategoryGame/${id}`, {
+    const CategoryVise = (item) => {
+        setCategotyActive(item?.name)
+        axios.get(`http://localhost:3100/game/getCategoryGame/${item?._id}`, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }
@@ -42,6 +44,7 @@ const Product = () => {
     }, []);
 
     const SelectedGame = async () => {
+        setCategotyActive(null)
         await axios.get("http://localhost:3100/game/getUserGame", {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
@@ -67,7 +70,7 @@ const Product = () => {
                         <div className="col-lg-12">
                             <div className="mb-30">
                                 <div className="cr-banner">
-                                    <h2> Games </h2>
+                                    <h2 className='text-light'> Games </h2>
                                 </div>
                             </div>
                         </div>
@@ -85,10 +88,10 @@ const Product = () => {
                                             <li data-filter=".bakery">Bakery</li>
                                         </ul> */}
                                         <ul>
-                                            <li onClick={() => SelectedGame()}>All</li>
+                                            <li onClick={() => SelectedGame()} className={categotyActive==null?"active":null} >All</li>
                                             {
                                                 categoty?.map((item) => (
-                                                    <li onClick={() => CategoryVise(item._id)}>{item.name}</li>
+                                                    <li onClick={() => CategoryVise(item)} className={categotyActive===item.name?"active":null}>{item.name}</li>
                                                 ))
                                             }
                                         </ul>

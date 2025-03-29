@@ -163,7 +163,7 @@ const ProductDetail = () => {
         console.log(users);
         const user = users.find(u => u._id === userId);
         return user ? user.name : "Unknown User";
-    };
+    };  
     const CheckID = () => {
         if (!id) {
             console.log("No valid ID, resetting game data...");

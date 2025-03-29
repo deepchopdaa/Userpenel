@@ -12,7 +12,7 @@ const Header = () => {
     }
     return (
         <>
-            <header className="text-white text-nowrap py-2" style={{ backgroundColor: "rgb(22 11 68)" }}>
+            <header className="text-white text-nowrap header py-2">
                 <div className="container">
                     <div className="d-flex align-items-center justify-content-between">
                         {/* Logo */}

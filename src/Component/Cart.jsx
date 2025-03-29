@@ -130,15 +130,15 @@ const Cart = () => {
                 </section> */}
                 {/* Cart */}
 
-                <section className="section-cart padding-t-100">
+                <section className="section-cart bg-dark padding-t-100">
                     <div className="container">
                         <div className="row d-none">
                             <div className="col-lg-12">
                                 <div className="mb-30" data-aos="fade-up" data-aos-duration={2000} data-aos-delay={400}>
                                     <div className="cr-banner">
-                                        <h2>Cart</h2>
+                                        <h2 className='text-light'>Cart</h2>
                                     </div>
-                                    <div className="cr-banner-sub-title">
+                                    <div className="cr-banner-sub-title ">
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                                             ut labore lacus vel facilisis. </p>
                                     </div>
@@ -152,7 +152,7 @@ const Cart = () => {
                                         <form action="#">
                                             <div className="cr-table-content">
                                                 <table>
-                                                    <thead>
+                                                    <thead className='bg-dark'>
                                                         <tr>
                                                             <th>Product</th>
                                                             <th>Time Slot</th>
@@ -207,7 +207,7 @@ const Cart = () => {
                                                 <div className="col-lg-12">
                                                     <div className="cr-cart-update-bottom">
                                                         {/* <a href="javascript:void(0)" className="cr-links">Continue Shopping</a> */}
-                                                        <Link to='/'>Continue Shopping</Link>
+                                                        <Link to='/' className='text-light'>Continue To Home</Link>
                                                         <button className="cr-button" onClick={handleCheckout}>
                                                             Check Out
                                                         </button>
