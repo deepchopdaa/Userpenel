@@ -163,7 +163,7 @@ const ProductDetail = () => {
         console.log(users);
         const user = users.find(u => u._id === userId);
         return user ? user.name : "Unknown User";
-    };  
+    };
     const CheckID = () => {
         if (!id) {
             console.log("No valid ID, resetting game data...");
@@ -272,18 +272,12 @@ const ProductDetail = () => {
                             </div>
                             <div className="col-xxl-8 col-xl-7 col-md-6 col-12 mb-24">
                                 <div className="cr-size-and-weight-contain">
-                                    <h2 className="heading">{title}</h2>
+                                    <h2 className="heading text-light">{title}</h2>
                                     <p>{description}</p>
                                 </div>
                                 <div className="cr-size-and-weight">
                                     <div className="cr-review-star">
-                                        <div className="cr-star">
-                                            <i className="ri-star-fill" />
-                                            <i className="ri-star-fill" />
-                                            <i className="ri-star-fill" />
-                                            <i className="ri-star-fill" />
-                                            <i className="ri-star-fill" />
-                                        </div>
+                                        
                                         <p>({reviewcount})Review</p>
                                     </div>
 
@@ -317,16 +311,16 @@ const ProductDetail = () => {
                         </div>
                         <div className="row" data-aos="fade-up" data-aos-duration={2000} data-aos-delay={600}>
                             <div className="col-12">
-                                <div className="cr-paking-delivery">
+                                <div className="cr-paking-delivery bg-dark text-light">
                                     <ul className="nav nav-tabs" id="myTab" role="tablist">
                                         <li className="nav-item" role="presentation">
-                                            <button className="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Description</button>
+                                            <button className="nav-link active bg-dark text-light" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Description</button>
                                         </li>
                                         <li className="nav-item" role="presentation">
-                                            <button className="nav-link" id="additional-tab" data-bs-toggle="tab" data-bs-target="#additional" type="button" role="tab" aria-controls="additional" aria-selected="false">Information</button>
+                                            <button className="nav-link bg-dark text-light" id="additional-tab" data-bs-toggle="tab" data-bs-target="#additional" type="button" role="tab" aria-controls="additional" aria-selected="false">Information</button>
                                         </li>
                                         <li className="nav-item" role="presentation">
-                                            <button className="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">Review</button>
+                                            <button className="nav-link bg-dark text-light" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">Review</button>
                                         </li>
                                     </ul>
                                     <div className="tab-content" id="myTabContent">
@@ -394,9 +388,8 @@ const ProductDetail = () => {
                                                         <button className="cr-button" type="submit" value="Submit">Submit</button>
                                                     </div>
                                                 </form> */}
-                                                <div className="container mt-4">
-                                                    <div className="card p-4 shadow">
-                                                        <h3 className="text-center mb-3">Submit Your Review</h3>
+                                                <div className="container mt-4 ">
+                                                    <div className="card p-4 shadow bg-dark text-light">
                                                         <Formik
                                                             initialValues={{ rating1: "", comment1: "" }}
                                                             validationSchema={reviewValidation}
@@ -406,11 +399,11 @@ const ProductDetail = () => {
                                                             }}
                                                         >
                                                             {({ isSubmitting }) => (
-                                                                <Form>
+                                                                <Form className='bg-dark text-light'>
                                                                     {/* Rating Field */}
                                                                     <div className="mb-3">
                                                                         <label className="form-label fw-bold">Rating (1-5):</label>
-                                                                        <Field name="rating1" type="number" className="form-control" />
+                                                                        <Field name="rating1" type="number" className="form-control bg-dark text-light" />
                                                                         <ErrorMessage
                                                                             name="rating1"
                                                                             component="div"
@@ -424,7 +417,7 @@ const ProductDetail = () => {
                                                                             name="comment1"
                                                                             as="textarea"
                                                                             rows="3"
-                                                                            className="form-control"
+                                                                            className="form-control bg-dark text-light"
                                                                         />
                                                                         <ErrorMessage
                                                                             name="comment1"
@@ -436,7 +429,7 @@ const ProductDetail = () => {
                                                                     {/* Submit Button */}
                                                                     <button
                                                                         type="submit"
-                                                                        className="btn btn-primary w-100"
+                                                                        className="btn btn-danger w-100"
                                                                     >
                                                                         Submit
                                                                     </button>
@@ -463,18 +456,18 @@ const ProductDetail = () => {
                 >
                     <div className="modal-dialog">
                         <div className="modal-content">
-                            <div className="modal-header">
+                            <div className="modal-header bg-dark text-light">
                                 <h5 className="modal-title" id="bookingModalLabel">
                                     Book Your Ticket
                                 </h5>
                                 <button
                                     type="button"
-                                    className="btn-close"
+                                    className="btn-close btn btn-danger bg-danger"
                                     data-bs-dismiss="modal"
                                     aria-label="Close"
                                 ></button>
                             </div>
-                            <div className="modal-body">
+                            <div className="modal-body bg-dark text-light">
                                 <Formik
                                     initialValues={{
                                         timeSlot: "",
@@ -493,7 +486,6 @@ const ProductDetail = () => {
                                             amount: values.totalAmount,
                                             date: values.date
                                         };
-
                                         Expiryverify()
                                         /* alert(`Ticket booked for ${values.timeSlot} on ${values.date}\nTotal: ₹${values.totalAmount}`); */
                                         const token1 = localStorage.getItem("token");
@@ -520,18 +512,32 @@ const ProductDetail = () => {
                                     }}
                                 >
                                     {({ values, setFieldValue }) => (
-                                        <Form>
+                                        <Form className='bg-dark text-light'>
                                             {/* Date Selection */}
                                             <div className="mb-3">
                                                 <label className="form-label">Select Date:</label>
                                                 <Field
                                                     type="date"
-                                                    className="form-control"
+                                                    className="form-control bg-dark text-light"
                                                     name="date"
                                                     value={values.date}
                                                     min={today}
                                                     onChange={(e) => setFieldValue("date", e.target.value)}
+                                                    style={{
+                                                        position: "relative",
+                                                        colorScheme: "dark"
+                                                    }}
                                                 />
+                                                <style>
+                                                    {`
+                                                        input[type="date"]::-webkit-calendar-picker-indicator {
+                                                            cursor: pointer;
+                                                        }
+                                                             input[type="date"] {
+                                                            color-scheme: dark;
+                                                        }
+                                                    `}
+                                                </style>
                                                 <ErrorMessage name="date" component="div" className="text-danger" />
                                             </div>
 
@@ -558,18 +564,30 @@ const ProductDetail = () => {
                                             <h6>Select A Time Slot : (Ticket Book only between 9AM to 9PM)</h6>
                                             <Field
                                                 type="time"
-                                                className="form-control"
+                                                className="form-control bg-dark text-light"
                                                 name="timeSlot"
                                                 value={values.timeSlot}
-
-                                            />
+                                                style={{
+                                                    position: "relative",
+                                                    colorScheme: "dark"
+                                                }}
+                                            />    <style>
+                                                {`
+                                                input[type="time"]::-webkit-calendar-picker-indicator {
+                                                    cursor: pointer;
+                                                }
+                                                    input[type="date"] {
+                                                            color-scheme: dark;
+                                                        }
+                                            `}
+                                            </style>
                                             <ErrorMessage name="timeSlot" component="div" className="text-danger" />
                                             {/* Number of Tickets */}
                                             <div className="mb-3 mt-3">
                                                 <label className="form-label">Number of Tickets: </label>
                                                 <Field
                                                     type="number"
-                                                    className="form-control"
+                                                    className="form-control bg-dark text-light"
                                                     name="ticketCount"
                                                     min="1"
                                                     max="10"
@@ -587,13 +605,13 @@ const ProductDetail = () => {
                                                 <label className="form-label">Total Amount:</label>
                                                 <input
                                                     type="text"
-                                                    className="form-control"
+                                                    className="form-control bg-dark text-light"
                                                     value={`₹${values.totalAmount}`}
                                                     readOnly
                                                 />
                                             </div>
                                             {/* Submit Button */}
-                                            <button type="submit" className="btn btn-success">
+                                            <button type="submit" className="btn btn-danger">
                                                 Add To Ticket
                                             </button>
                                         </Form>

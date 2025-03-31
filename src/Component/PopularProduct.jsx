@@ -63,7 +63,6 @@ const PopularProduct = () => {
                             <div className="mb-30">
                                 <div className="cr-banner">
                                     <h2 className='text-light'>Popular Games</h2>
-
                                 </div>
                             </div>
                         </div>

@@ -48,7 +48,7 @@ const Cart = () => {
 
     const handleCheckDelete = async () => {
         try {
-  
+
             await axios.delete(`http://localhost:3100/cart/Checkout`, {
                 headers: { Authorization: "Bearer " + localStorage.getItem("token") }
             });
@@ -75,7 +75,7 @@ const Cart = () => {
                         time_slot: item.time_slot
                     },
                     { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
-                );
+                );  
             }
             handleCheckDelete();
             toast.success("Your Ticket Booking Success")
@@ -99,7 +99,7 @@ const Cart = () => {
             console.error("Error deleting item", error);
         }
     };
-    
+
 
     const handleQuantityChange = (id, delta) => {
         setCart((prevCart) =>
@@ -108,13 +108,13 @@ const Cart = () => {
             )
         );
     };
-    
+
     return (
         <>
             <Header />
             <div>
                 {/* Breadcrumb */}
-               {/*  <section className="section-breadcrumb">
+                {/*  <section className="section-breadcrumb">
                     <div className="cr-breadcrumb-image">
                         <div className="container">
                             <div className="row">
@@ -180,24 +180,24 @@ const Cart = () => {
                                                                         <td className="cr-cart-price">
                                                                             <span className="amount">₹{item.t_price}</span>
                                                                         </td>
-                                                                        <td className="cr-cart-qty">
-                                                                            <div className="cart-qty-plus-minus">
+                                                                        <td className="cr-cart-qty ">
+                                                                            <div className="cart-qty-plus-minus bg-dark">
                                                                                 {/* <button type="button" className="plus">+</button>
                                                                                 <input type="text" placeholder="." defaultValue={item.ticket} minLength={1} maxLength={20} className="quantity" />
                                                                                 <button type="button" className="minus">-</button> */}
-                                                                                <button onClick={() => handleQuantityChange(item._id, -1)}>-</button>
-                                                                                <input type="text" value={item.ticket} readOnly />
-                                                                                <button onClick={() => handleQuantityChange(item._id, 1)}>+</button>
+                                                                                <button className='text-light' onClick={() => handleQuantityChange(item._id, -1)}>-</button>
+                                                                                <input className='text-light' type="text" value={item.ticket} readOnly />
+                                                                                <button className='text-light' onClick={() => handleQuantityChange(item._id, 1)}>+</button>
                                                                             </div>
                                                                         </td>
                                                                         <td className="cr-cart-subtotal">₹{item.ticket * item.t_price}</td>
                                                                         <td className="cr-cart-remove">
-                                                                            <button onClick={() => { handleDelete(item._id); }}>
-                                                                                <i className="ri-delete-bin-line" />
+                                                                            <button className='bg-danger' onClick={() => { handleDelete(item._id); }}>
+                                                                                <i className="ri-delete-bin-line text-dark" />
                                                                             </button>
                                                                         </td>
                                                                     </tr>
-                                                                </>       
+                                                                </>
                                                             ))
                                                         }
                                                     </tbody >
@@ -226,7 +226,7 @@ const Cart = () => {
             </div >
             <PopularProduct />
             <Footer />
-            <ToastContainer/>
+            <ToastContainer />
         </>
     )
 }

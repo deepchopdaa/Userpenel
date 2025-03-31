@@ -63,7 +63,7 @@ const ContactUs = () => {
                             <div className="col-lg-12">
                                 <div className="mb-30" data-aos="fade-up" data-aos-duration={2000} data-aos-delay={400}>
                                     <div className="cr-banner">
-                                        <h2>Get in Touch</h2>
+                                        <h2 className='text-light'>Get in Touch</h2>
                                     </div>
                                     <div className="cr-banner-sub-title">
                                         <p>Prepared is me marianne pleasure likewise debating. Wonder an unable except better stairs
@@ -76,7 +76,7 @@ const ContactUs = () => {
                         </div>
                         <div className="row mb-minus-24">
                             <div className="col-lg-4 col-md-6 col-12 mb-24" data-aos="fade-up" data-aos-duration={2000} data-aos-delay={400}>
-                                <div className="cr-info-box">
+                                <div className="cr-info-box bg-dark ">
                                     <div className="cr-icon">
                                         <i className="ri-phone-line" />
                                     </div>
@@ -89,7 +89,7 @@ const ContactUs = () => {
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-6 col-12 mb-24" data-aos="fade-up" data-aos-duration={2000} data-aos-delay={600}>
-                                <div className="cr-info-box">
+                                <div className="cr-info-box bg-dark">
                                     <div className="cr-icon">
                                         <i className="ri-mail-line" />
                                     </div>
@@ -103,7 +103,7 @@ const ContactUs = () => {
                                 </div>
                             </div>
                             <div className="col-lg-4 col-12 mb-24" data-aos="fade-up" data-aos-duration={2000} data-aos-delay={800}>
-                                <div className="cr-info-box">
+                                <div className="cr-info-box bg-dark">
                                     <div className="cr-icon">
                                         <i className="ri-map-pin-line" />
                                     </div>
@@ -140,25 +140,25 @@ const ContactUs = () => {
                                     onSubmit={handleSubmit}
                                 >
                                     {({ handleSubmit }) => (
-                                        <Form className="cr-content-form" onSubmit={handleSubmit}>
+                                        <Form className="cr-content-form " onSubmit={handleSubmit}>
                                             <div className="form-group">
-                                                <Field type="text" name="name" placeholder="Full Name" className="cr-form-control" />
+                                                <Field type="text" name="name" placeholder="Full Name" className="cr-form-control bg-dark text-light" />
                                                 <ErrorMessage name="name" component="div" className="text-danger" />
                                             </div>
 
                                             <div className="form-group">
-                                                <Field type="email" name="email" placeholder="Email" className="cr-form-control" />
+                                                <Field type="email" name="email" placeholder="Email" className="cr-form-control bg-dark text-light" />
                                                 <ErrorMessage name="email" component="div" className="text-danger" />
                                             </div>
 
                                             <div className="form-group">
-                                                <Field type="text" name="number" placeholder="Phone" className="cr-form-control" />
+                                                <Field type="text" name="number" placeholder="Phone" className="cr-form-control bg-dark text-light" />
                                                 <ErrorMessage name="number" component="div" className="text-danger" />
                                             </div>
 
                                             <div className="form-group">
-                                                <Field as="textarea" name="description" className="cr-form-control" rows={4} placeholder="Message" />
-                                                <ErrorMessage name="description" component="div" className="text-danger" />
+                                                <Field as="textarea" name="description" className="cr-form-control bg-dark text-light" rows={4} placeholder="Message" />
+                                                <ErrorMessage name="description" component="div" className="text-danger " />
                                             </div>
 
                                             <button type="submit" className="cr-button">Submit</button>

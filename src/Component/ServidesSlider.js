@@ -8,20 +8,26 @@ const ServicesSlider = () => {
         dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 3, // Adjust based on your design
+        slidesToShow: 4, // Adjust based on your design
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
         arrows: false, // Hide arrows if not needed
         responsive: [
             {
-                breakpoint: 1024,
+                breakpoint: 1024,   
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 3,
                 }
             },  
             {
                 breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 576,
                 settings: {
                     slidesToShow: 1,
                 }
@@ -34,7 +40,7 @@ const ServicesSlider = () => {
             <div className="container">
                 <h2 className="text-center mb-4">Why Choose Our Game Zone?</h2>
                 <Slider {...settings}>
-                    <div className="cr-services text-center">
+                    <div className="cr-services text-center ">
                         <div className="cr-services-image">
                             <i className="ri-gamepad-line fs-1 text-primary"></i>
                         </div>

@@ -1,58 +1,77 @@
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faHome } from '@fortawesome/free-solid-svg-icons';
+import './Header.css'; // Import CSS file for styling
 
 const Header = () => {
     const navigate = useNavigate();
+
     const Logout = () => {
         localStorage.removeItem("token");
-        navigate("/login")
-    }
+        navigate("/login");
+    };
+
     return (
         <>
-            <header className="text-white text-nowrap header py-2">
-                <div className="container">
-                    <div className="d-flex align-items-center justify-content-between">
-                        {/* Logo */}
-                        <div className="fw-bold fs-4"><img src='assets/img/product/logo1.jpg' height='50px' width='80px' /></div>
-                        {/* Right Side Navbar */}
-                        <div className="d-flex align-items-center ms-auto">
-                            <Link to="/" className="text-light text-decoration-none mx-3">
-                                <FontAwesomeIcon icon={faHome} /> Homes
-                            </Link>
-                            <Link to="/cart" className="text-light text-decoration-none mx-3">
-                                <i className="ri-shopping-cart-line" /> Ticket Menu
-                            </Link>
-                            <Link to="/contactus" className="text-light text-decoration-none mx-3">
+            <style>
+                {`.active{
+                    color:red !important
+                }`}
+            </style>
+            <header className="header">
+                <nav className="container d-flex align-items-center justify-content-between">
+                    {/* Logo */}
+                    <img src="assets/img/product/logo.png" height='70px' alt="Logo" />
+
+                    {/* Navbar Items */}
+                    <ul className="nav-links d-flex align-items-center mb-0">
+                        <li>
+                            <NavLink to="/" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+                                <FontAwesomeIcon icon={faHome} /> <span>Home</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/cart" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+                                <i className="ri-shopping-cart-line" /> <span>Ticket Menu</span>
+                            </NavLink>
+                        </li>
+                        <li>    
+                            <NavLink to="/contactus" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
                                 Contact Us
-                            </Link>
-                            <ul className="navbar-nav">
-                                <li className="nav-item dropdown">
-                                    <div className="nav-link dropdown-toggle text-light mx-3" data-bs-toggle="dropdown">
-                                        <i className="ri-user-3-line" /> <span>Account</span>
+                            </NavLink>
+                        </li>
+                        <li>    
+                            <NavLink to="/aboutus" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+                                About Us
+                            </NavLink>
+                        </li>
+                        {/* Account Dropdown */}
+                        <li className="dropdown">
+                            <div className="nav-item dropdown-toggle" data-bs-toggle="dropdown">
+                                <i className="ri-user-3-line" /> <span>Account</span>
+                            </div>
+                            <ul className="dropdown-menu bg-danger">
+                                <li>
+                                    <div onClick={Logout} className="dropdown-item text-center">
+                                        <FontAwesomeIcon icon={faSignOutAlt} /> Logout
                                     </div>
-                                    <ul className="dropdown-menu dropdown-menu-end">
-                                        <li>
-                                            <div onClick={() => Logout()} className="dropdown-item text-center">
-                                                <FontAwesomeIcon icon={faSignOutAlt} /> LogOut
-                                            </div>
-                                        </li>
-                                    </ul> 
                                 </li>
                             </ul>
-                            {
-                                localStorage.getItem("token") ? " " : <Link to="/login" className="text-light text-decoration-none mx-3">
+                        </li>
+                        {/* Login Link (if not logged in) */}
+                        {!localStorage.getItem("token") && (
+                            <li>
+                                <NavLink to="/login" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
                                     Login
-                                </Link>
-                            }
-                        </div>
-                    </div>
-                </div>
+                                </NavLink>
+                            </li>
+                        )}
+                    </ul>
+                </nav>
             </header>
         </>
-    )
-}
+    );
+};
 
-export default Header
+export default Header;

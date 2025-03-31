@@ -78,7 +78,7 @@ const Product = () => {
                     <div className="product-content row mb-minus-24" id="MixItUpDA2FB7">
                         <div className="col-xl-3 col-lg-4 col-12 mb-24">
                             <div className="row mb-minus-24 sticky">
-                                <div className="col-lg-12 col-sm-6 col-6 cr-product-box mb-24">
+                                <div className="col-lg-12 col-sm-12 col-12 cr-product-box mb-24">
                                     <div className="cr-product-tabs">
                                         {/* <ul>
                                             <li className="active" data-filter="all">All</li>
@@ -114,7 +114,7 @@ const Product = () => {
                                                 <div className="cr-product-image">
                                                     <div className="cr-image-inner zoom-image-hover">
                                                         <img src={`http://localhost:3100/${item.image}`} alt="product-1" />
-                                                    </div>
+                                                    </div>  
                                                     {/* <div className="cr-side-view">
                                                         <a href="javascript:void(0)" className="wishlist">
                                                             <i className="ri-heart-line" />
@@ -146,7 +146,7 @@ const Product = () => {
                                                         </div>
                                                     </div> */}
                                                     <div>{item.description}</div>
-                                                    <p className="cr-price"><span className="new-price"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                                                    <p className="cr-price"><span className="new-price "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
                                                         <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z" />
                                                     </svg>{item.price}</span> {/* <span className="old-price">$123.25</span> */}</p>
                                                 </div>

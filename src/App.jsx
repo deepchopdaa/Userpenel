@@ -14,6 +14,7 @@ import Testlogin from "./Component/Testlogin.js"
 import Game from "./Component/Games.js";
 import Checkout from "./Component/Checkout.js";
 import ReturnPage from "./Component/ReturnPayment.js";
+import AboutUs from "./Component/Aboutus.js";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -48,6 +49,10 @@ function App() {
     {
       path: "/product",
       element: <ProductDetail />,
+    },
+    {
+      path: "/aboutus",
+      element: <AboutUs />,
     },
     {
       path:"/checkout",

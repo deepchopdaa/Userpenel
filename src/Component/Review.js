@@ -90,7 +90,7 @@ const Review = () => {
                     <Slider {...settings}>
                         {reviews.map((review, index) => (
                             <div key={index} className="p-3 review-item">
-                                <div className="cr-testimonial bg-light p-4 rounded shadow text-center" style={{maxHeight:"200px", minHeight:"150px",contain:"content"}}>
+                                <div className="cr-testimonial bg-light p-4 rounded shadow text-center" style={{height:"200px",contain:"content"}}>
                                     {/* <div className="cr-testimonial-image mb-3">
                                         <img
                                             src={review.image || "assets/img/testimonial/default.jpg"}
