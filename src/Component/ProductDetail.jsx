@@ -428,7 +428,7 @@ const ProductDetail = () => {
                                                                     {/* Submit Button */}
                                                                     <button
                                                                         type="submit"
-                                                                        className="btn btn-danger w-100"
+                                                                        className="btn btn-danger"
                                                                     >
                                                                         Submit
                                                                     </button>

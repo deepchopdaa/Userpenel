@@ -46,7 +46,7 @@ const Review = () => {
         infinite: true,
         speed: 800,
         slidesToShow: 4,
-        slidesToScroll: 1,
+        slidesToScroll: 2,
         // autoplay: true,
         autoplaySpeed: 3000,
         arrows: false,

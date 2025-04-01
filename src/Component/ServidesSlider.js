@@ -9,17 +9,17 @@ const ServicesSlider = () => {
         infinite: true,
         speed: 500,
         slidesToShow: 4, // Adjust based on your design
-        slidesToScroll: 1,
+        slidesToScroll: 2,
         autoplay: true,
         autoplaySpeed: 3000,
         arrows: false, // Hide arrows if not needed
         responsive: [
             {
-                breakpoint: 1024,   
+                breakpoint: 1024,
                 settings: {
                     slidesToShow: 3,
                 }
-            },  
+            },
             {
                 breakpoint: 768,
                 settings: {

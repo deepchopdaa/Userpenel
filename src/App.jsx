@@ -12,7 +12,7 @@ import Cart from "./Component/Cart.jsx";
 import PopularProduct from "./Component/PopularProduct.jsx";
 import Testlogin from "./Component/Testlogin.js"
 import Game from "./Component/Games.js";
-import Checkout from "./Component/Checkout.js";
+import RazorpayPayment from "./Component/RazorpayPayment.js";
 import ReturnPage from "./Component/ReturnPayment.js";
 import AboutUs from "./Component/Aboutus.js";
 import UserDetails from "./Component/UserDetails.js";
@@ -56,8 +56,8 @@ function App() {
       element: <AboutUs />,
     },
     {
-      path:"/checkout",
-      element:<Checkout/>
+      path:"/payment",
+      element:<RazorpayPayment/>
     },
     {
       path:"/return",

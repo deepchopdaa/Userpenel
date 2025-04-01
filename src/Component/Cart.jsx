@@ -11,12 +11,80 @@ import 'react-toastify/dist/ReactToastify.css';
 const Cart = () => {
     const [cart, setCart] = useState([]);
     const [games, setGames] = useState({});
+    const [Total, setTotal] = useState(0);
     const [id, setid] = useState(null)
     const navigate = useNavigate("/")
 
+
+    /* ReZorPay Integrete  Start */
+
+    useEffect(() => {
+        // Dynamically add Razorpay script
+        const script = document.createElement("script");
+        script.src = "https://checkout.razorpay.com/v1/checkout.js";
+        script.async = true;
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script); // Cleanup script on unmount
+        };
+    }, []);
+
+    const handlePayment = async () => {
+        try {
+            const { data } = await axios.post("http://localhost:3100/payment/create-order", {
+                amount: Total, // Amount in INR
+                currency: "INR",
+            });
+
+            // Ensure Razorpay is available before calling it
+            if (!window.Razorpay) {
+                alert("Razorpay SDK failed to load. Check your internet connection.");
+                return;
+            }
+
+            const options = {
+                key: "rzp_test_ByLYqGFo9id87j", // Replace with your Razorpay Key ID
+                amount: data.amount,
+                currency: data.currency,
+                order_id: data.id,
+                name: "Game Zone",
+                description: "Test Transaction",
+                handler: async function (response) {
+                    const verify = await axios.post("http://localhost:3100/payment/verify-payment", response);
+                    if (verify.data.success) {
+                        alert("Payment successful!");
+                    } else {
+                        alert("Payment verification failed!");
+                    }
+                },
+                prefill: {
+                    name: "User Name",
+                    email: "user@example.com",
+                    contact: "9876543210",
+                },
+                theme: {
+                    color: "#ff0000",
+                },
+            };
+
+            const rzp = new window.Razorpay(options);
+            rzp.open();
+        } catch (error) {
+            console.error("Payment Error:", error);
+        }
+    };
+
+    /* ReZorPay Integrete  End */
+
     useEffect(() => {
         if (cart.length === 0) fetchCart();  // ✅ Prevents re-fetching after first event
+        TotalAmmount();
     }, []);
+
+    /* useEffect(()=>{
+        TotalAmmount(); 
+    },[cart]) */
 
     const fetchCart = async () => {
         try {
@@ -28,6 +96,18 @@ const Cart = () => {
             fetchGameDetails(response.data);
         } catch (error) {
             console.error("Error fetching cart items", error);
+        }
+    };
+    const TotalAmmount = async () => {
+        try {
+            const response = await axios.get("http://localhost:3100/cart/getTotal", {
+                headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+            });
+            console.log(response.data)
+            setTotal(response.data.total);
+
+        } catch (error) {
+            console.error("Error fetching Total Of  items", error);
         }
     };
 
@@ -48,7 +128,6 @@ const Cart = () => {
 
     const handleCheckDelete = async () => {
         try {
-
             await axios.delete(`http://localhost:3100/cart/Checkout`, {
                 headers: { Authorization: "Bearer " + localStorage.getItem("token") }
             });
@@ -75,18 +154,17 @@ const Cart = () => {
                         time_slot: item.time_slot
                     },
                     { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
-                );  
+                );
             }
             handleCheckDelete();
             toast.success("Your Ticket Booking Success")
             setCart([])
-            navigate('/checkout')
+            navigate('/payment')
         } catch (error) {
             console.error("Error during checkout", error);
             toast.error("Failed to place order. Please try again.");
         }
     };
-
 
     const handleDelete = async (id) => {
         try {
@@ -108,6 +186,12 @@ const Cart = () => {
             )
         );
     };
+
+    useEffect(() => {
+        const newTotal = cart.reduce((acc, item) => acc + item.ticket * item.t_price, 0);
+        setTotal(newTotal);
+        console.log(Total)
+    }, [cart]);
 
     return (
         <>
@@ -182,7 +266,7 @@ const Cart = () => {
                                                                         </td>
                                                                         <td className="cr-cart-qty ">
                                                                             <div className="cart-qty-plus-minus bg-dark">
-                                                                                {/* <button type="button" className="plus">+</button>
+                                                                                {/* <button type="button" className="plus">+</b utton>
                                                                                 <input type="text" placeholder="." defaultValue={item.ticket} minLength={1} maxLength={20} className="quantity" />
                                                                                 <button type="button" className="minus">-</button> */}
                                                                                 <button className='text-light' onClick={() => handleQuantityChange(item._id, -1)}>-</button>
@@ -197,18 +281,22 @@ const Cart = () => {
                                                                             </button>
                                                                         </td>
                                                                     </tr>
+
                                                                 </>
+
                                                             ))
                                                         }
                                                     </tbody >
                                                 </table>
                                             </div>
+
                                             <div className="row">
                                                 <div className="col-lg-12">
                                                     <div className="cr-cart-update-bottom">
                                                         {/* <a href="javascript:void(0)" className="cr-links">Continue Shopping</a> */}
                                                         <Link to='/' className='text-light'>Continue To Home</Link>
-                                                        <button className="cr-button" onClick={handleCheckout}>
+
+                                                        <button className="cr-button" onClick={handlePayment}>
                                                             Check Out
                                                         </button>
                                                     </div>
