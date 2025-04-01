@@ -3880,8 +3880,8 @@ ul.navbar-nav .dropdown:hover .dropdown-menu {
 }
 
 .cr-testimonial::before {
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   content: "";
   background-image: url("../img/testimonial/left-quote.png");
   background-size: 100%;
@@ -3894,8 +3894,8 @@ ul.navbar-nav .dropdown:hover .dropdown-menu {
 }
 
 .cr-testimonial::after {
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   content: "";
   background-image: url("../img/testimonial/left-quote.png");
   background-size: 100%;
@@ -4153,7 +4153,7 @@ ul.navbar-nav .dropdown:hover .dropdown-menu {
 
 .sticky {
   position: sticky;
-  top: 0;
+  top: 100px;
 }
 
 .cr-ice-cubes {
@@ -5247,6 +5247,8 @@ ul.navbar-nav .dropdown:hover .dropdown-menu {
 
 .cr-services {
   padding: 24px;
+  max-height: 200px;
+  min-height: 200px;
   background-color: #05050f;
   border-radius: 5px;
   border: 1px solid #e9e9e9;

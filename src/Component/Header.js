@@ -11,6 +11,9 @@ const Header = () => {
         localStorage.removeItem("token");
         navigate("/login");
     };
+    const User = () => {
+        navigate("/userDetail");
+    };
 
     return (
         <>
@@ -36,12 +39,12 @@ const Header = () => {
                                 <i className="ri-shopping-cart-line" /> <span>Ticket Menu</span>
                             </NavLink>
                         </li>
-                        <li>    
+                        <li>
                             <NavLink to="/contactus" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
                                 Contact Us
                             </NavLink>
                         </li>
-                        <li>    
+                        <li>
                             <NavLink to="/aboutus" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
                                 About Us
                             </NavLink>
@@ -53,10 +56,16 @@ const Header = () => {
                             </div>
                             <ul className="dropdown-menu bg-danger">
                                 <li>
+                                    <div onClick={User} className="dropdown-item text-center">
+                                        User Detail
+                                    </div>
+                                </li>
+                                <li>
                                     <div onClick={Logout} className="dropdown-item text-center">
                                         <FontAwesomeIcon icon={faSignOutAlt} /> Logout
                                     </div>
                                 </li>
+
                             </ul>
                         </li>
                         {/* Login Link (if not logged in) */}

@@ -277,12 +277,11 @@ const ProductDetail = () => {
                                 </div>
                                 <div className="cr-size-and-weight">
                                     <div className="cr-review-star">
-                                        
                                         <p>({reviewcount})Review</p>
                                     </div>
 
                                     <div className="cr-product-price">
-                                        <span className="new-price">₹{price}</span>
+                                        <span className="new-price text-danger">₹{price}</span>
                                     </div>
 
                                     <div className="cr-add-card">

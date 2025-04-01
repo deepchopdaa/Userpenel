@@ -15,6 +15,7 @@ import Game from "./Component/Games.js";
 import Checkout from "./Component/Checkout.js";
 import ReturnPage from "./Component/ReturnPayment.js";
 import AboutUs from "./Component/Aboutus.js";
+import UserDetails from "./Component/UserDetails.js";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -76,6 +77,10 @@ function App() {
       path: "/contactus",
       element: <ContactUs />,
     },
+    {
+      path: "/userDetail",
+      element: <UserDetails />,
+    }
   ]);
 
   return <RouterProvider router={router} />;
