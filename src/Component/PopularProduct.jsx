@@ -13,7 +13,6 @@ const PopularProduct = () => {
         AOS.refresh();
     }, []);
 
-
     const [game, setgame] = useState(null);
     const navigate = useNavigate("/")
 
@@ -70,12 +69,12 @@ const PopularProduct = () => {
                     <Slider {...settings}>
                         {
                             game?.map((item) => (
-                                <div className="cr-product-card" >
+                                <div className="cr-product-card"  onClick={() => navigate("/", { state: { id: item._id } })} >
                                     <div className="cr-product-image">
                                         <div className="cr-product-image">
                                             <div className="cr-image-inner zoom-image-hover">
                                                 <img src={`http://localhost:3100/${item.image}`} alt="product-1" />
-                                            </div>
+                                            </div>  
                                             {/* <div className="cr-side-view">
                                                         <a href="javascript:void(0)" className="wishlist">
                                                             <i className="ri-heart-line" />
@@ -88,7 +87,7 @@ const PopularProduct = () => {
                                                         <i className="ri-shopping-bag-line" />
                                                     </a> */}
                                             {/* <Link className="cr-shopping-bag" to='/product'><i className="ri-shopping-bag-line" /></Link> */}
-                                            <p className="cr-shopping-bag" onClick={() => navigate("/", { state: { id: item._id } })} ><i className="ri-shopping-bag-line" /></p>
+                                            <p className="cr-shopping-bag" ><i className="ri-shopping-bag-line" /></p>
                                         </div>
                                     </div>
                                     <div className="cr-product-details">
@@ -96,7 +95,7 @@ const PopularProduct = () => {
                                             {item.title}
                                         </h6>
                                         <p>{item.description}</p>
-                                        <p className="cr-price"><span className="new-price">₹{item.price}</span> </p>
+                                        {/* <p className="cr-price"><span className="new-price">₹{item.price}</span> </p> */}
                                     </div>
                                 </div>
                             ))

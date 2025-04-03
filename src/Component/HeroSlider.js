@@ -66,7 +66,6 @@ const PrevArrow = ({ onClick }) => {
 
 const HeroSlider = () => {
     const [slides, setSlides] = useState([]);
-
     useEffect(() => {
         axios.get("http://localhost:3100/slider/getimage")
             .then((response) => {
@@ -103,7 +102,6 @@ const HeroSlider = () => {
                                 alt="Image not found"
                             />
                         </div>
-
                         {/* Text Content */}
                         <div style={{ height: "100px", position: "absolute", marginTop: "-30vh", marginLeft: "80vw", color: "white" }}>
                             <h2 className='text-dark'>{item.title}</h2>

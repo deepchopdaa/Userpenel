@@ -35,11 +35,6 @@ const Header = () => {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/cart" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-                                <i className="ri-shopping-cart-line" /> <span>Ticket Menu</span>
-                            </NavLink>
-                        </li>
-                        <li>
                             <NavLink to="/contactus" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
                                 Contact Us
                             </NavLink>
@@ -47,6 +42,11 @@ const Header = () => {
                         <li>
                             <NavLink to="/aboutus" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
                                 About Us
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/cart" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+                                <i className="ri-shopping-cart-line" /> <span>Ticket Menu</span>
                             </NavLink>
                         </li>
                         {/* Account Dropdown */}
@@ -65,7 +65,6 @@ const Header = () => {
                                         <FontAwesomeIcon icon={faSignOutAlt} /> Logout
                                     </div>
                                 </li>
-
                             </ul>
                         </li>
                         {/* Login Link (if not logged in) */}

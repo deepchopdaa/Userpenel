@@ -24,13 +24,14 @@ const Cart = () => {
         script.src = "https://checkout.razorpay.com/v1/checkout.js";
         script.async = true;
         document.body.appendChild(script);
-
         return () => {
             document.body.removeChild(script); // Cleanup script on unmount
         };
     }, []);
 
-    const handlePayment = async () => {
+    const handlePayment = async (event) => {
+        event.preventDefault();
+        alert("sdsdasd")
         try {
             const { data } = await axios.post("http://localhost:3100/payment/create-order", {
                 amount: Total, // Amount in INR
@@ -61,15 +62,17 @@ const Cart = () => {
                 prefill: {
                     name: "User Name",
                     email: "user@example.com",
-                    contact: "9876543210",
+                    contact: "98765432104",
                 },
                 theme: {
+
                     color: "#ff0000",
                 },
             };
 
             const rzp = new window.Razorpay(options);
             rzp.open();
+            handleCheckout()
         } catch (error) {
             console.error("Payment Error:", error);
         }
@@ -78,8 +81,9 @@ const Cart = () => {
     /* ReZorPay Integrete  End */
 
     useEffect(() => {
-        if (cart.length === 0) fetchCart();  // ✅ Prevents re-fetching after first event
-        TotalAmmount();
+        // if (cart.length === 0) fetchCart();  // ✅ Prevents re-fetching after first event
+        // TotalAmmount();
+        fetchCart()
     }, []);
 
     /* useEffect(()=>{
@@ -159,15 +163,15 @@ const Cart = () => {
             handleCheckDelete();
             toast.success("Your Ticket Booking Success")
             setCart([])
-            navigate('/payment')
         } catch (error) {
             console.error("Error during checkout", error);
             toast.error("Failed to place order. Please try again.");
         }
     };
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (id, event) => {
         try {
+            event.preventDefault();
             console.log(id)
             await axios.delete(`http://localhost:3100/cart/deletecart/${id}`, {
                 headers: { Authorization: "Bearer " + localStorage.getItem("token") }
@@ -179,7 +183,8 @@ const Cart = () => {
     };
 
 
-    const handleQuantityChange = (id, delta) => {
+    const handleQuantityChange = (id, delta, event) => {
+        event.preventDefault();
         setCart((prevCart) =>
             prevCart.map(item =>
                 item._id === id ? { ...item, ticket: Math.max(1, item.ticket + delta) } : item
@@ -188,10 +193,10 @@ const Cart = () => {
     };
 
     useEffect(() => {
-        const newTotal = cart.reduce((acc, item) => acc + item.ticket * item.t_price, 0);
-        setTotal(newTotal);
-        console.log(Total)
-    }, [cart]);
+         const newTotal = cart.reduce((acc, item) => acc + item.ticket * item.t_price, 0);
+         setTotal(newTotal);
+         console.log(Total)
+     }, [cart]);
 
     return (
         <>
@@ -233,15 +238,15 @@ const Cart = () => {
                             <div className="col-12">
                                 <div className="cr-cart-content" data-aos="fade-up" data-aos-duration={2000} data-aos-delay={400}>
                                     <div className="row">
-                                        <form action="#">
+                                        <form >
                                             <div className="cr-table-content">
                                                 <table>
                                                     <thead className='bg-dark'>
                                                         <tr>
-                                                            <th>Product</th>
-                                                            <th>Time Slot</th>
+                                                            <th>Games</th>
+                                                            <th>Time</th>
                                                             <th>price</th>
-                                                            <th className="text-center">Quantity</th>
+                                                            <th className="text-center">Ticket</th>
                                                             <th>Total</th>
                                                             <th>Action</th>
                                                         </tr>
@@ -269,19 +274,18 @@ const Cart = () => {
                                                                                 {/* <button type="button" className="plus">+</b utton>
                                                                                 <input type="text" placeholder="." defaultValue={item.ticket} minLength={1} maxLength={20} className="quantity" />
                                                                                 <button type="button" className="minus">-</button> */}
-                                                                                <button className='text-light' onClick={() => handleQuantityChange(item._id, -1)}>-</button>
+                                                                                <button className='text-light' onClick={(e) => handleQuantityChange(item._id, -1,e)}>-</button>
                                                                                 <input className='text-light' type="text" value={item.ticket} readOnly />
-                                                                                <button className='text-light' onClick={() => handleQuantityChange(item._id, 1)}>+</button>
+                                                                                <button className='text-light' onClick={(e) => handleQuantityChange(item._id, 1,e)}>+</button>
                                                                             </div>
                                                                         </td>
                                                                         <td className="cr-cart-subtotal">₹{item.ticket * item.t_price}</td>
                                                                         <td className="cr-cart-remove">
-                                                                            <button className='bg-danger' onClick={() => { handleDelete(item._id); }}>
+                                                                            <button className='bg-danger' onClick={(e) => handleDelete(item._id, e)}>
                                                                                 <i className="ri-delete-bin-line text-dark" />
                                                                             </button>
                                                                         </td>
                                                                     </tr>
-
                                                                 </>
 
                                                             ))
@@ -295,8 +299,7 @@ const Cart = () => {
                                                     <div className="cr-cart-update-bottom">
                                                         {/* <a href="javascript:void(0)" className="cr-links">Continue Shopping</a> */}
                                                         <Link to='/' className='text-light'>Continue To Home</Link>
-
-                                                        <button className="cr-button" onClick={handlePayment}>
+                                                        <button className="cr-button" onClick={(e)=>handlePayment(e)}>
                                                             Check Out
                                                         </button>
                                                     </div>

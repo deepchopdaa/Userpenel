@@ -5,9 +5,11 @@ import { Link, UNSAFE_getPatchRoutesOnNavigationFunction, useNavigate } from 're
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import AOS from "aos";
+import { IoMdHome } from "react-icons/io";
 import "aos/dist/aos.css";
 import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css"
+import Header from './Header';
 
 
 
@@ -74,6 +76,7 @@ const Login = () => {
                 </div>
             </section> */}
             {/* Login Section */}
+            <Header/>
             <section className="login-section">
                 <div className="container">
                     <div className="row">
@@ -95,7 +98,7 @@ const Login = () => {
                                             .required("Required password"),
                                     })}
                                     onSubmit={handleLogin}
-                                >
+                                >   
                                     {({ handleSubmit }) => (
                                         <Form className="login-form" onSubmit={handleSubmit}>
                                             <div className="login-form-group">

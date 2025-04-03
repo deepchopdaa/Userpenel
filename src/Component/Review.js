@@ -44,10 +44,10 @@ const Review = () => {
     const settings = {
         dots: true,
         infinite: true,
-        speed: 800,
+        speed: 500,
         slidesToShow: 4,
-        slidesToScroll: 2,
-        // autoplay: true,
+        slidesToScroll: 1,
+        autoplay: true,
         autoplaySpeed: 3000,
         arrows: false,
         responsive: [

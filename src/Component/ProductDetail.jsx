@@ -610,7 +610,8 @@ const ProductDetail = () => {
                                                 />
                                             </div>
                                             {/* Submit Button */}
-                                            <button type="submit" className="btn btn-danger">
+                                            <button type="submit" className="btn btn-danger" data-bs-dismiss="modal"
+                                                aria-label="Close">
                                                 Add To Ticket
                                             </button>
                                         </Form>
