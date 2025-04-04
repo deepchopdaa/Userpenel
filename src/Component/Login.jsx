@@ -146,15 +146,6 @@ const Login = () => {
             {/* Toast Notifications */}
             <ToastContainer />
 
-            {/* Scroll to Top Button */}
-            <a href="#Top" className="back-to-top">
-                <i className="ri-arrow-up-line" />
-                <div className="back-to-top-wrap">
-                    <svg viewBox="-1 -1 102 102">
-                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
-                    </svg>
-                </div>
-            </a>
         </>
     );
 };

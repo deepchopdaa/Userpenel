@@ -54,7 +54,7 @@ const Cart = () => {
                 handler: async function (response) {
                     const verify = await axios.post("http://localhost:3100/payment/verify-payment", response);
                     if (verify.data.success) {
-                        alert("Payment successful!");
+                        toast.success("Your Ticket Booking Success")
                     } else {
                         alert("Payment verification failed!");
                     }
@@ -99,14 +99,14 @@ const Cart = () => {
             console.log(cart)
             fetchGameDetails(response.data);
         } catch (error) {
-            console.error("Error fetching cart items", error);
+            console.error("Error fetching cart items", error);  
         }
     };
     const TotalAmmount = async () => {
         try {
             const response = await axios.get("http://localhost:3100/cart/getTotal", {
                 headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-            });
+            }); 
             console.log(response.data)
             setTotal(response.data.total);
 
@@ -161,7 +161,7 @@ const Cart = () => {
                 );
             }
             handleCheckDelete();
-            toast.success("Your Ticket Booking Success")
+
             setCart([])
         } catch (error) {
             console.error("Error during checkout", error);
@@ -193,10 +193,10 @@ const Cart = () => {
     };
 
     useEffect(() => {
-         const newTotal = cart.reduce((acc, item) => acc + item.ticket * item.t_price, 0);
-         setTotal(newTotal);
-         console.log(Total)
-     }, [cart]);
+        const newTotal = cart.reduce((acc, item) => acc + item.ticket * item.t_price, 0);
+        setTotal(newTotal);
+        console.log(Total)
+    }, [cart]);
 
     return (
         <>
@@ -274,9 +274,9 @@ const Cart = () => {
                                                                                 {/* <button type="button" className="plus">+</b utton>
                                                                                 <input type="text" placeholder="." defaultValue={item.ticket} minLength={1} maxLength={20} className="quantity" />
                                                                                 <button type="button" className="minus">-</button> */}
-                                                                                <button className='text-light' onClick={(e) => handleQuantityChange(item._id, -1,e)}>-</button>
+                                                                                <button className='text-light' onClick={(e) => handleQuantityChange(item._id, -1, e)}>-</button>
                                                                                 <input className='text-light' type="text" value={item.ticket} readOnly />
-                                                                                <button className='text-light' onClick={(e) => handleQuantityChange(item._id, 1,e)}>+</button>
+                                                                                <button className='text-light' onClick={(e) => handleQuantityChange(item._id, 1, e)}>+</button>
                                                                             </div>
                                                                         </td>
                                                                         <td className="cr-cart-subtotal">₹{item.ticket * item.t_price}</td>
@@ -299,8 +299,8 @@ const Cart = () => {
                                                     <div className="cr-cart-update-bottom">
                                                         {/* <a href="javascript:void(0)" className="cr-links">Continue Shopping</a> */}
                                                         <Link to='/' className='text-light'>Continue To Home</Link>
-                                                        <button className="cr-button" onClick={(e)=>handlePayment(e)}>
-                                                            Check Out
+                                                        <button className="cr-button" onClick={(e) => handlePayment(e)}>
+                                                            Payment
                                                         </button>
                                                     </div>
                                                 </div>

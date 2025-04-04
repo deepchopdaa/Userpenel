@@ -1,85 +1,233 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faHome } from '@fortawesome/free-solid-svg-icons';
-import './Header.css'; // Import CSS file for styling
+import { faSignOutAlt, faHome, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import './Header.css';
 
 const Header = () => {
     const navigate = useNavigate();
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const handleResize = () => {
+        setIsMobile(window.innerWidth < 900);
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const Logout = () => {
         localStorage.removeItem("token");
+        setMenuOpen(false);
         navigate("/login");
     };
+
     const User = () => {
+        setMenuOpen(false);
         navigate("/userDetail");
     };
+
+    const renderMenuItems = () => (
+        <>
+            <li>
+                <NavLink to="/" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} onClick={() => setMenuOpen(false)}>
+                    <FontAwesomeIcon icon={faHome} /> <span>Home</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink to="/contactus" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} onClick={() => setMenuOpen(false)}>
+                    <i class="fa-solid fa-address-book" /><span>Contact Us</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink to="/aboutus" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} onClick={() => setMenuOpen(false)}>
+                    About Us
+                </NavLink>
+            </li>
+            <li>
+                <NavLink to="/cart" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} onClick={() => setMenuOpen(false)}>
+                    <i className="ri ri-shopping-cart-line" /> <span>Ticket Menu</span>
+                </NavLink>
+            </li>
+            <li>
+                <li className="nav-item dropdown">
+                    <div className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i className="ri-user-3-line" /> <span>Account</span>
+                    </div>
+                    <ul className="dropdown-menu cs-item">
+                        <li>
+                            <div onClick={User} className="dropdown-item text-light ">
+                                <i className="ri-user-3-line" /> User Detail
+                            </div>
+                        </li>
+                        <li>
+                            <div onClick={Logout} className="dropdown-item text-light ">
+                                <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </li>
+            {/*  <li className="nav-item">
+                <div className="nav-link" onClick={User}>
+                    <i className="ri ri-user-3-line" /> <span>User Detail</span>
+                </div>
+            </li>
+            <li className="nav-item">
+                <div className="nav-link" onClick={Logout}>
+                    <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+                </div>
+            </li> */}
+            {!localStorage.getItem("token") && (
+                <li>
+                    <NavLink to="/login" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} onClick={() => setMenuOpen(false)}>
+                        Login
+                    </NavLink>
+                </li>
+            )}
+        </>
+    );
 
     return (
         <>
             <style>
-                {`.active{
-                    color:red !important
-                }`}
+                {`.active { color: red !important; }`}
             </style>
             <header className="header">
-                <nav className="container d-flex align-items-center justify-content-between">
-                    {/* Logo */}
-                    <img src="assets/img/product/logo.png" height='70px' alt="Logo" />
+                <nav className="navbar navbar-dark bg-dark px-3">
+                    <div className="d-flex align-items-center justify-content-between w-100">
+                        <NavLink to="/" className="navbar-brand">
+                            <img src="assets/img/product/logo.png" height='50px' alt="Logo" />
+                        </NavLink>
 
-                    {/* Navbar Items */}
-                    <ul className="nav-links d-flex align-items-center mb-0">
-                        <li>
-                            <NavLink to="/" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-                                <FontAwesomeIcon icon={faHome} /> <span>Home</span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/contactus" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-                                Contact Us
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/aboutus" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-                                About Us
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/cart" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-                                <i className="ri-shopping-cart-line" /> <span>Ticket Menu</span>
-                            </NavLink>
-                        </li>
-                        {/* Account Dropdown */}
-                        <li className="dropdown">
-                            <div className="nav-item dropdown-toggle" data-bs-toggle="dropdown">
-                                <i className="ri-user-3-line" /> <span>Account</span>
-                            </div>
-                            <ul className="dropdown-menu bg-danger">
-                                <li>
-                                    <div onClick={User} className="dropdown-item text-center">
-                                        User Detail
-                                    </div>
-                                </li>
-                                <li>
-                                    <div onClick={Logout} className="dropdown-item text-center">
-                                        <FontAwesomeIcon icon={faSignOutAlt} /> Logout
-                                    </div>
-                                </li>
+                        {/* Mobile Menu Button */}
+                        {isMobile ? (
+                            <button className="menu-btn text-white" onClick={() => setMenuOpen(!menuOpen)}>
+                                <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} size="lg" />
+                            </button>
+                        ) : (
+                            <ul className="navbar-nav d-flex flex-row gap-3 align-items-center mb-0">
+                                {renderMenuItems()}
                             </ul>
-                        </li>
-                        {/* Login Link (if not logged in) */}
-                        {!localStorage.getItem("token") && (
-                            <li>
-                                <NavLink to="/login" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-                                    Login
-                                </NavLink>
-                            </li>
                         )}
-                    </ul>
+                    </div>
                 </nav>
+
+                {/* Custom Mobile Menu */}
+                {menuOpen && isMobile && (
+                    <div className="custom-menu">
+                        <ul className="mobile-nav-list">
+                            {renderMenuItems()}
+                        </ul>
+                    </div>
+                )}
             </header>
         </>
     );
 };
 
 export default Header;
+
+
+
+
+
+// import React from 'react';
+// import { NavLink, useNavigate } from 'react-router-dom';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faSignOutAlt, faHome } from '@fortawesome/free-solid-svg-icons';
+// import './Header.css'; // Import CSS file for styling
+
+// const Header = () => {
+//     const navigate = useNavigate();
+
+//     const Logout = () => {
+//         localStorage.removeItem("token");
+//         navigate("/login");
+//     };
+
+//     const User = () => {
+//         navigate("/userDetail");
+//     };
+//     return (
+//         <>
+//             <style>
+//                 {`.active{
+//                 color:red !important
+//             }`}
+//             </style>
+//             <header className="header">
+//                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+//                     <div className="container">
+//                         {/* Logo */}
+//                         <NavLink to="/" className="navbar-brand">
+//                             <img src="assets/img/product/logo.png" height='50px' alt="Logo" />
+//                         </NavLink>
+
+
+
+//                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+//                             <span className="navbar-toggler-icon"></span>
+//                         </button>
+
+//                         <div className="collapse navbar-collapse" id="navbarNav">
+//                             {/* Navbar Items */}
+//                             <ul className="navbar-nav ms-auto">
+//                                 <li className="nav-item">
+//                                     <NavLink to="/" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+//                                         <FontAwesomeIcon icon={faHome} /> <span>Home</span>
+//                                     </NavLink>
+//                                 </li>
+//                                 <li className="nav-item">
+//                                     <NavLink to="/contactus" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+//                                         Contact Us
+//                                     </NavLink>
+//                                 </li>
+//                                 <li className="nav-item">
+//                                     <NavLink to="/aboutus" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+//                                         About Us
+//                                     </NavLink>
+//                                 </li>
+//                                 <li className="nav-item">
+//                                     <NavLink to="/cart" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+//                                         <i className="ri-shopping-cart-line" /> <span>Ticket Menu</span>
+//                                     </NavLink>
+//                                 </li>
+//                                 {/* Account Dropdown */}
+//                                 <li className="nav-item dropdown">
+//                                     <div className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+//                                         <i className="ri-user-3-line" /> <span>Account</span>
+//                                     </div>
+//                                     <ul className="dropdown-menu">
+//                                         <li>
+//                                             <div onClick={User} className="dropdown-item text-center">
+//                                                 User Detail
+//                                             </div>
+//                                         </li>
+//                                         <li>
+//                                             <div onClick={Logout} className="dropdown-item text-center">
+//                                                 <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+//                                             </div>
+//                                         </li>
+//                                     </ul>
+//                                 </li>
+//                                 {/* Login Link (if not logged in) */}
+//                                 {!localStorage.getItem("token") && (
+//                                     <li className="nav-item">
+//                                         <NavLink to="/login" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+//                                             Login
+//                                         </NavLink>
+//                                     </li>
+//                                 )}
+//                             </ul>
+//                         </div>
+//                     </div>
+//                 </nav>
+//             </header>
+//         </>
+//     );
+// };
+
+// export default Header;

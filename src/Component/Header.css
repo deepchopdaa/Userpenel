@@ -1,10 +1,83 @@
 .header {
-    background-color: #0e0000; /* Dark Background */
+    background-color: #000000;
+    color: white;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.navbar-brand img {
+    height: 50px;
+}   
+
+.nav-link {
+    color: white;
+    font-size: 16px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: red;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.custom-menu {
+    position: absolute;
+    top: 65px;
+    left: 0;
+    right: 0;
+    background-color: #1a1a1a;
+    padding: 20px;
+    z-index: 20;
+    border-top: 1px solid #444;
+}
+
+.mobile-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-nav-list li {
+    margin-bottom: 15px;
+}
+
+.mobile-nav-list .nav-link {
+    color: white;
+    font-size: 16px;
+    display: block;
+}
+
+.mobile-nav-list .nav-link:hover {
+    color: red;
+}
+
+@media (max-width: 500px) {
+    .navbar-brand img {
+        height: 35px;
+    }
+    .nav-link {
+        font-size: 14px;
+    }
+}
+
+
+
+/* .header {
+    background-color: #0e0000; 
     color: white;
     width: 100%;
     position: sticky;
     top: 0px;
-    z-index: 20;
+    z-index:5;
     text-wrap: none !important;
 }
 
@@ -26,6 +99,7 @@
     text-decoration: none;
     font-size: 16px;
     transition: all 0.3s ease;
+    text-wrap: none !important;
 }
 
 .nav-item:hover {
@@ -39,14 +113,15 @@
 
 @media (max-width: 992px) {
     .nav-links {
-        gap: 10px; /* Reduce space between items */
+        gap: 10px; 
     }
     .nav-item {
-        font-size: 14px; /* Smaller font */
+        font-size: 14px; 
         padding: 5px 8px;
+        text-wrap: none !important;
     }
     .logo img {
-        height: 35px; /* Shrink logo */
+        height: 35px; 
     }
 }
 
@@ -56,6 +131,7 @@
     }
     .nav-item {
         font-size: 12px;
+        text-wrap: none !important;
     }
     .logo img {
         height: 30px;
@@ -67,8 +143,9 @@
     }
     .nav-item {
         font-size: 6px !important;
+        text-wrap: none !important;
     }
     .logo img {
         height: 30px;
     }
-}
+} */
