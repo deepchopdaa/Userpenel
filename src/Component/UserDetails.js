@@ -12,7 +12,7 @@ const UserDetail = () => {
 
     // Fetch user details (Replace with actual API)
     const GetDetails = async () => {
-        await axios.get("http://localhost:3100/user/getuserdetails", {
+        await axios.get("https://gamezone-r2eq.onrender.com/user/getuserdetails", {
 
             headers: { Authorization: "Bearer " + localStorage.getItem("token") },
 
@@ -24,9 +24,9 @@ const UserDetail = () => {
             .catch(error => console.error("Error fetching user:", error));
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         GetDetails()
-    },[])
+    }, [])
 
     // Handle Input Change
     const handleChange = (e) => {
@@ -42,7 +42,7 @@ const UserDetail = () => {
     // Handle Form Submission
     const handleSubmit = async (values) => {
         console.log(values, "User Details");
-        await axios.put("http://localhost:3100/user/updateuser", values, {
+        await axios.put("https://gamezone-r2eq.onrender.com/user/updateuser", values, {
             headers: { Authorization: "Bearer " + localStorage.getItem("token") }
         }) // Example API route
             .then((response) => {

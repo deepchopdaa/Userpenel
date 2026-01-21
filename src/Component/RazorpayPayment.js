@@ -16,7 +16,7 @@ const RazorpayPayment = () => {
 
   const handlePayment = async () => {
     try {
-      const { data } = await axios.post("http://localhost:3100/payment/create-order", {
+      const { data } = await axios.post("https://gamezone-r2eq.onrender.com/payment/create-order", {
         amount: 500, // Amount in INR
         currency: "INR",
       });
@@ -35,7 +35,7 @@ const RazorpayPayment = () => {
         name: "Game Zone",
         description: "Test Transaction",
         handler: async function (response) {
-          const verify = await axios.post("http://localhost:3100/payment/verify-payment", response);
+          const verify = await axios.post("https://gamezone-r2eq.onrender.com/payment/verify-payment", response);
           if (verify.data.success) {
             alert("Payment successful!");
           } else {

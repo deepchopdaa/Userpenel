@@ -21,7 +21,7 @@ const ContactUs = () => {
     const handleSubmit = async (values, { resetForm }) => {
         console.log("Form Data:", values);
         try {
-            const res = await axios.post("http://localhost:3100/contact/addcontact", values, {
+            const res = await axios.post("https://gamezone-r2eq.onrender.com/contact/addcontact", values, {
                 headers: {
                     /* "Content-Type": "multipart/form-data", */
                     Authorization: "Bearer " + localStorage.getItem("token")

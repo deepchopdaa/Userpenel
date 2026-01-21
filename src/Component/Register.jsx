@@ -20,7 +20,7 @@ const Register = () => {
     const handleRegister = async (values) => {
         console.log(values);
         try {
-            let res = await axios.post("http://localhost:3100/auth/register", values);
+            let res = await axios.post("https://gamezone-r2eq.onrender.com/auth/register", values);
             console.log(res);
             toast.success("User Registered Successfully");
             setTimeout(() => {
@@ -34,7 +34,7 @@ const Register = () => {
 
     return (
         <>
-            <Header/>
+            <Header />
             <section className="login-section">
                 <div className="container">
                     <div className="row">

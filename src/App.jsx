@@ -9,6 +9,7 @@ import Home from "./Component/Home.jsx";
 import ProductDetail from "./Component/ProductDetail.jsx";
 import ContactUs from "./Component/ContactUs.js";
 import Cart from "./Component/Cart.jsx";
+
 import PopularProduct from "./Component/PopularProduct.jsx";
 import Testlogin from "./Component/Testlogin.js"
 import Game from "./Component/Games.js";
@@ -16,6 +17,7 @@ import RazorpayPayment from "./Component/RazorpayPayment.js";
 import ReturnPage from "./Component/ReturnPayment.js";
 import AboutUs from "./Component/Aboutus.js";
 import UserDetails from "./Component/UserDetails.js";
+import UserTickets from "./Component/UserTicket.js";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -48,7 +50,7 @@ function App() {
       element: <Game />,
     },
     {
-      path: "/product",
+      path: "/product/:id",
       element: <ProductDetail />,
     },
     {
@@ -56,17 +58,21 @@ function App() {
       element: <AboutUs />,
     },
     {
-      path:"/payment",
-      element:<RazorpayPayment/>
+      path: "/payment",
+      element: <RazorpayPayment />
     },
     {
-      path:"/return",
-      element:<ReturnPage/>
+      path: "/UserTickets",
+      element: <UserTickets />
+    },
+    {
+      path: "/return",
+      element: <ReturnPage />
     },
     {
       path: "/cart",
       element: (
-        <Cart />  
+        <Cart />
       ),
     },
     {

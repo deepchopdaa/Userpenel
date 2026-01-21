@@ -67,7 +67,7 @@ const PrevArrow = ({ onClick }) => {
 const HeroSlider = () => {
     const [slides, setSlides] = useState([]);
     useEffect(() => {
-        axios.get("http://localhost:3100/slider/getimage")
+        axios.get("https://gamezone-r2eq.onrender.com/slider/getimage")
             .then((response) => {
                 setSlides(response.data);
             })
@@ -97,7 +97,7 @@ const HeroSlider = () => {
                         {/* Image Container */}
                         <div className='cr-side-slider' style={{ height: '100%', width: '100%' }}>
                             <img
-                                src={`http://localhost:3100/${item.image}`}
+                                src={item.image}
                                 style={{ objectFit: "cover", height: "80vh", width: "100%" }}
                                 alt="Image not found"
                             />

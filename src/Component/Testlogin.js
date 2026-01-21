@@ -31,7 +31,7 @@ const Login = () => {
     const handleLogin = async (values) => {
         console.log(values);
         try {
-            let res = await axios.post("http://localhost:3100/auth/login", values);
+            let res = await axios.post("https://gamezone-r2eq.onrender.com/auth/login", values);
             console.log(res.data.token);
             const token = res.data.token;
             if (token !== undefined) {
@@ -43,7 +43,7 @@ const Login = () => {
             }
         } catch (e) {
             console.log(e);
-            toast.error("User Not Login Successfully"); 
+            toast.error("User Not Login Successfully");
         }
     };
     return (

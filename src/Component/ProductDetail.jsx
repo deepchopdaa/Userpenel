@@ -6,7 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
 import * as Yup from "yup";
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,7 +18,7 @@ import 'react-clock/dist/Clock.css';
 
 const ProductDetail = () => {
     const location = useLocation();
-    const id = location.state?.id || null; // Make sure ID is either valid or null
+    /* const id = location.state?.id || null; */ // Make sure ID is either valid or null
     const [game, setgame] = useState([]);
     const [Game_id, setGame_id] = useState(null)
     const [ticket, setticket] = useState(null)
@@ -48,6 +48,9 @@ const ProductDetail = () => {
 
     const MIN_TIME = "09:00"; // 9:00 AM
     const MAX_TIME = "21:00"; // 9:00 PM
+
+    const { id } = useParams()
+    console.log(id, "ID For get Perticulor game");
 
     const validationSchema = Yup.object().shape({
         date: Yup.string()
@@ -94,7 +97,7 @@ const ProductDetail = () => {
     }
 
     const Reviews = async () => {
-        await axios.get("http://localhost:3100/review/getuserreview").then((review) => {
+        await axios.get("https://gamezone-r2eq.onrender.com/review/getuserreview").then((review) => {
             setreviews(review.data)
             console.log(review.data, "<------ user Reviews from review table ---->")
         }).catch(() => {
@@ -103,7 +106,7 @@ const ProductDetail = () => {
     }
 
     const GameReview = async () => {
-        await axios.get(`http://localhost:3100/review/getGamereview/${id}`).then((item) => {
+        await axios.get(`https://gamezone-r2eq.onrender.com/review/getGamereview/${id}`).then((item) => {
             setgamereview(item.data);
             console.log(item.data, "<----- perticulor game review ---->")
             console.log(item.data.length)
@@ -112,7 +115,7 @@ const ProductDetail = () => {
             console.log("This Game Review Not Found")
         })
         // Fetch users
-        const userResponse = await axios.get("http://localhost:3100/user/getuserReview", {
+        const userResponse = await axios.get("https://gamezone-r2eq.onrender.com/user/getuserReview", {
             headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         });
         setUsers(userResponse.data);
@@ -124,7 +127,7 @@ const ProductDetail = () => {
         try {
             console.log("Fetching data for ID:", id);
             setgame([]); // Clear previous game data before fetching new
-            const response = await axios.get(`http://localhost:3100/userpenel/productDetail/${id}`);
+            const response = await axios.get(`https://gamezone-r2eq.onrender.com/userpenel/productDetail/${id}`);
             console.log("API Response:", response.data);
             setgame(response.data);
         } catch (error) {
@@ -136,7 +139,7 @@ const ProductDetail = () => {
     /* Get Review For Specific Game */
     /*  const GetGameReview = async (req, res) => {
          try {
-             const responce = await axios.get(`http://localhost:3100/review/getdetailreview/${id}`, {
+             const responce = await axios.get(`https://gamezone-r2eq.onrender.com/review/getdetailreview/${id}`, {
                  headers: {
                      Authorization: "Bearer " + localStorage.getItem("token")
                  }
@@ -147,7 +150,7 @@ const ProductDetail = () => {
                  console.log("Error Getting When Game Review Fetching")
              })
              // Fetch users
-             const userResponse = await axios.get("http://localhost:3100/user/getuserReview", {
+             const userResponse = await axios.get("https://gamezone-r2eq.onrender.com/user/getuserReview", {
                  headers: { Authorization: "Bearer " + localStorage.getItem("token") },
              });
              setUsers(userResponse.data);
@@ -200,7 +203,7 @@ const ProductDetail = () => {
 
     /* const Addreview = async (resetform) => {
         try {
-            await axios.post("http://localhost:3100/userpenel/addreview", { Game_id: id, rating, comment }, {
+            await axios.post("https://gamezone-r2eq.onrender.com/userpenel/addreview", { Game_id: id, rating, comment }, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
@@ -218,7 +221,7 @@ const ProductDetail = () => {
     const addReview = async (values, resetform) => {
         console.log(values)
         try {
-            await axios.post("http://localhost:3100/userpenel/addreview", { Game_id: id, rating: values.rating1, comment: values.comment1 }, {
+            await axios.post("https://gamezone-r2eq.onrender.com/userpenel/addreview", { Game_id: id, rating: values.rating1, comment: values.comment1 }, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
@@ -263,7 +266,7 @@ const ProductDetail = () => {
                                             <div className="slider-banner-image">
                                                 <div className="zoom-image-hover">
                                                     {/* <img src="assets/img/product/9.jpg" alt="product-tab-1" className="product-image" /> */}
-                                                    <img src={`http://localhost:3100/${image}`} alt="product-1" />
+                                                    <img src={image} alt="product-1" />
                                                 </div>
                                             </div>
                                         </div>
@@ -349,7 +352,7 @@ const ProductDetail = () => {
                                                     gamereview?.map((item) => (
                                                         <div className="post">
                                                             <div className="content">
-                                                                <img src="assets/img/review/1.jpg" alt="review" />
+                                                                {/* <img src="assets/img/review/1.jpg" alt="review" /> */}
                                                                 <div className="details">
                                                                     <span className="date">@{getUsername(item.user_id)}</span>
                                                                     <span className="name">{item.comment}</span>
@@ -364,7 +367,7 @@ const ProductDetail = () => {
                                                         </div>
                                                     ))
                                                 }
-                                                <h4 className="heading">Add a Review</h4>
+                                                <h4 className="heading text-light">Add a Review</h4>
                                                 {/* <form action="javascript:void(0)">
                                                     <div className="cr-ratting-star">
                                                         <span>Your rating :</span>
@@ -461,7 +464,7 @@ const ProductDetail = () => {
                                 </h5>
                                 <button
                                     type="button"
-                                    className="btn-close btn btn-danger bg-danger"
+                                    className="btn-close btn"
                                     data-bs-dismiss="modal"
                                     aria-label="Close"
                                 ></button>
@@ -472,7 +475,7 @@ const ProductDetail = () => {
                                         timeSlot: "",
                                         ticketCount: 0, // Set default to 1
                                         totalAmount: price ? price : 0,
-                                        date: new Date().toISOString().split("T")[0] // Default to today's date
+                                        date: new Date().toISOString().split("T")[0], // Default to today's date
                                     }}
                                     validationSchema={validationSchema}
                                     onSubmit={(values, { resetForm }) => {
@@ -483,20 +486,19 @@ const ProductDetail = () => {
                                             time_slot: values.timeSlot,
                                             t_price: price ? price : 0,
                                             amount: values.totalAmount,
-                                            date: values.date
+                                            date: values.date,
                                         };
-                                        Expiryverify()
-                                        /* alert(`Ticket booked for ${values.timeSlot} on ${values.date}\nTotal: ₹${values.totalAmount}`); */
+                                        Expiryverify();
                                         const token1 = localStorage.getItem("token");
                                         if (token1) {
-
-                                            axios.post("http://localhost:3100/cart/addcart", bookingDetails, {
-                                                headers: {
-                                                    Authorization: "Bearer " + localStorage.getItem("token")
-                                                }
-                                            })
+                                            axios
+                                                .post("https://gamezone-r2eq.onrender.com/cart/addcart", bookingDetails, {
+                                                    headers: {
+                                                        Authorization: "Bearer " + localStorage.getItem("token"),
+                                                    },
+                                                })
                                                 .then((item) => {
-                                                    console.log(item.data, "add to cart ticket book responce");
+                                                    console.log(item.data, "add to cart ticket book response");
                                                     toast(item.data);
                                                 })
                                                 .catch((e) => {
@@ -506,12 +508,12 @@ const ProductDetail = () => {
 
                                             resetForm();
                                         } else {
-                                            toast.error("User Not Login , So please Login First")
+                                            toast.error("User Not Login, So please Login First");
                                         }
                                     }}
                                 >
                                     {({ values, setFieldValue }) => (
-                                        <Form className='bg-dark text-light'>
+                                        <Form className="bg-dark text-light">
                                             {/* Date Selection */}
                                             <div className="mb-3">
                                                 <label className="form-label">Select Date:</label>
@@ -524,63 +526,52 @@ const ProductDetail = () => {
                                                     onChange={(e) => setFieldValue("date", e.target.value)}
                                                     style={{
                                                         position: "relative",
-                                                        colorScheme: "dark"
+                                                        colorScheme: "dark",
                                                     }}
                                                 />
                                                 <style>
                                                     {`
-                                                        input[type="date"]::-webkit-calendar-picker-indicator {
-                                                            cursor: pointer;
-                                                        }
-                                                             input[type="date"] {
-                                                            color-scheme: dark;
-                                                        }
-                                                    `}
+            input[type="date"]::-webkit-calendar-picker-indicator {
+              cursor: pointer;
+            }
+            input[type="date"] {
+              color-scheme: dark;
+            }
+          `}
                                                 </style>
                                                 <ErrorMessage name="date" component="div" className="text-danger" />
                                             </div>
 
-                                            {/* {/* Time Slot Selection */}
-                                            {/* <h6>Select a Time Slot:</h6>    
-                                            {timeSlots.map((slot, index) => (
-                                                <div key={index} className="form-check">
-                                                    <Field
-                                                        className="form-check-input"
-                                                        type="radio"
-                                                        name="timeSlot"
-                                                        value={slot}
-                                                        min={currentTime}
-                                                        id={`slot-${index}`}
-
-                                                    />
-                                                    <label className="form-check-label" htmlFor={`slot-${index}`}>
-                                                        {slot}
-                                                    </label>
-                                                </div>
-                                            ))}
-                                            <ErrorMessage name="timeSlot" component="div" className="text-danger" /> */}
-
+                                            {/* Time Slot Selection */}
                                             <h6>Select A Time Slot : (Ticket Book only between 9AM to 9PM)</h6>
-                                            <Field
-                                                type="time"
-                                                className="form-control bg-dark text-light"
-                                                name="timeSlot"
-                                                value={values.timeSlot}
-                                                style={{
-                                                    position: "relative",
-                                                    colorScheme: "dark"
-                                                }}
-                                            />    <style>
-                                                {`
-                                                input[type="time"]::-webkit-calendar-picker-indicator {
-                                                    cursor: pointer;
-                                                }
-                                                    input[type="date"] {
-                                                            color-scheme: dark;
-                                                        }
-                                            `}
-                                            </style>
-                                            <ErrorMessage name="timeSlot" component="div" className="text-danger" />
+                                            <div className="mb-3">
+                                                <Field
+                                                    as="select"
+                                                    className="form-control bg-dark text-light"
+                                                    name="timeSlot"
+                                                    value={values.timeSlot}
+                                                    onChange={(e) => setFieldValue("timeSlot", e.target.value)}
+                                                    style={{
+                                                        position: "relative",
+                                                        colorScheme: "dark",
+                                                    }}
+                                                >
+                                                    <option value="">Select a Time</option>
+                                                    {/* Generate 9AM to 9PM time slots in 30-minute intervals */}
+                                                    {Array.from({ length: 25 }, (_, index) => {
+                                                        const hours = Math.floor(index / 2) + 9; // Start at 9 AM
+                                                        const minutes = index % 2 === 0 ? "00" : "30"; // 30-minute interval
+                                                        const time = `${String(hours).padStart(2, "0")}:${minutes}`;
+                                                        return (
+                                                            <option key={index} value={time}>
+                                                                {time}
+                                                            </option>
+                                                        );
+                                                    })}
+                                                </Field>
+                                                <ErrorMessage name="timeSlot" component="div" className="text-danger" />
+                                            </div>
+
                                             {/* Number of Tickets */}
                                             <div className="mb-3 mt-3">
                                                 <label className="form-label">Number of Tickets: </label>
@@ -609,15 +600,20 @@ const ProductDetail = () => {
                                                     readOnly
                                                 />
                                             </div>
+
                                             {/* Submit Button */}
-                                            <button type="submit" className="btn btn-danger" data-bs-dismiss="modal"
-                                                aria-label="Close">
+                                            <button
+                                                type="submit"
+                                                className="btn btn-danger"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"
+                                            >
                                                 Add To Ticket
                                             </button>
                                         </Form>
-
                                     )}
                                 </Formik>
+
                                 {/*  <Datetime />; */}
                             </div>
                         </div>

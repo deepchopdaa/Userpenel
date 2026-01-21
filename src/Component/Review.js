@@ -15,15 +15,15 @@ const Review = () => {
         const fetchData = async () => {
             try {
                 // Fetch reviews
-                const reviewResponse = await axios.get("http://localhost:3100/review/getuserreview", {
+                const reviewResponse = await axios.get("https://gamezone-r2eq.onrender.com/review/getuserreview", {
                     headers: { Authorization: "Bearer " + localStorage.getItem("token") },
                 });
                 // Fetch games
-                const gameResponse = await axios.get("http://localhost:3100/game/getUserGame", {
+                const gameResponse = await axios.get("https://gamezone-r2eq.onrender.com/game/getUserGame", {
                     headers: { Authorization: "Bearer " + localStorage.getItem("token") },
                 });
                 // Fetch users
-                const userResponse = await axios.get("http://localhost:3100/user/getuserReview", {
+                const userResponse = await axios.get("https://gamezone-r2eq.onrender.com/user/getuserReview", {
                     headers: { Authorization: "Bearer " + localStorage.getItem("token") },
                 });
                 setReviews(reviewResponse.data);
@@ -90,7 +90,7 @@ const Review = () => {
                     <Slider {...settings}>
                         {reviews.map((review, index) => (
                             <div key={index} className="p-3 review-item">
-                                <div className="cr-testimonial bg-light p-4 rounded shadow text-center" style={{height:"200px",contain:"content"}}>
+                                <div className="cr-testimonial bg-light p-4 rounded shadow text-center" style={{ height: "200px", contain: "content" }}>
                                     {/* <div className="cr-testimonial-image mb-3">
                                         <img
                                             src={review.image || "assets/img/testimonial/default.jpg"}

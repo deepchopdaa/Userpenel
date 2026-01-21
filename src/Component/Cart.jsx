@@ -3,9 +3,10 @@ import PopularProduct from './PopularProduct'
 import Footer from './Footer'
 import Header from './Header'
 import axios from 'axios'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const Cart = () => {
@@ -31,9 +32,9 @@ const Cart = () => {
 
     const handlePayment = async (event) => {
         event.preventDefault();
-        alert("sdsdasd")
+
         try {
-            const { data } = await axios.post("http://localhost:3100/payment/create-order", {
+            const { data } = await axios.post("https://gamezone-r2eq.onrender.com/payment/create-order", {
                 amount: Total, // Amount in INR
                 currency: "INR",
             });
@@ -52,7 +53,7 @@ const Cart = () => {
                 name: "Game Zone",
                 description: "Test Transaction",
                 handler: async function (response) {
-                    const verify = await axios.post("http://localhost:3100/payment/verify-payment", response);
+                    const verify = await axios.post("https://gamezone-r2eq.onrender.com/payment/verify-payment", response);
                     if (verify.data.success) {
                         toast.success("Your Ticket Booking Success")
                     } else {
@@ -92,21 +93,21 @@ const Cart = () => {
 
     const fetchCart = async () => {
         try {
-            const response = await axios.get("http://localhost:3100/cart/getcart", {
+            const response = await axios.get("https://gamezone-r2eq.onrender.com/cart/getcart", {
                 headers: { Authorization: "Bearer " + localStorage.getItem("token") }
             });
             setCart(response.data);
             console.log(cart)
             fetchGameDetails(response.data);
         } catch (error) {
-            console.error("Error fetching cart items", error);  
+            console.error("Error fetching cart items", error);
         }
     };
     const TotalAmmount = async () => {
         try {
-            const response = await axios.get("http://localhost:3100/cart/getTotal", {
+            const response = await axios.get("https://gamezone-r2eq.onrender.com/cart/getTotal", {
                 headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-            }); 
+            });
             console.log(response.data)
             setTotal(response.data.total);
 
@@ -118,7 +119,7 @@ const Cart = () => {
     const fetchGameDetails = async (cartItems) => {
         const gameIds = cartItems.map(item => item.Game_id);
         try {
-            const response = await axios.post("http://localhost:3100/game/getcartGame", { gameIds });
+            const response = await axios.post("https://gamezone-r2eq.onrender.com/game/getcartGame", { gameIds });
             console.log(response)
             const gameData = response.data.reduce((acc, game) => {
                 acc[game._id] = game.title;
@@ -132,9 +133,11 @@ const Cart = () => {
 
     const handleCheckDelete = async () => {
         try {
-            await axios.delete(`http://localhost:3100/cart/Checkout`, {
+            await axios.delete(`https://gamezone-r2eq.onrender.com/cart/Checkout`, {
                 headers: { Authorization: "Bearer " + localStorage.getItem("token") }
             });
+            navigate("/UserTickets")
+            console.log("navigation check !")
             // setCart(cart.filter(item => item._id !== id));
         } catch (error) {
             console.error("Error deleting item", error);
@@ -146,34 +149,59 @@ const Cart = () => {
             toast.error("Your cart is empty!");
             return;
         }
-        try {
-            for (const item of cart) {
-                await axios.post("http://localhost:3100/ticket/addticket",
-                    {
-                        user_id: item.user_id,
-                        Game_id: item.Game_id,
-                        amount: item.ticket * item.t_price,
-                        SeatNumber: item.ticket, // Assuming ticket represents the seat count
-                        date: item.date,
-                        time_slot: item.time_slot
-                    },
-                    { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
-                );
-            }
-            handleCheckDelete();
 
-            setCart([])
+        try {
+            console.log("Checkout started");
+
+            await Promise.all(
+                cart.map(item =>
+                    axios.post(
+                        "https://gamezone-r2eq.onrender.com/ticket/addticket",
+                        {
+                            user_id: item.user_id,
+                            Game_id: item.Game_id,
+                            amount: item.ticket * item.t_price,
+                            SeatNumber: item.ticket,
+                            date: item.date,
+                            time_slot: item.time_slot
+                        },
+                        {
+                            headers: {
+                                Authorization: "Bearer " + localStorage.getItem("token")
+                            }
+                        }
+                    )
+                )
+            );
+
+            console.log("All tickets added");
+
+            const deleteRes = await axios.delete(
+                "https://gamezone-r2eq.onrender.com/cart/Checkout",
+                {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("token")
+                    }
+                }
+            );
+
+            console.log("Cart deleted:", deleteRes.data);
+
+            setCart([]);
+            navigate("/UserTickets");
+
         } catch (error) {
-            console.error("Error during checkout", error);
-            toast.error("Failed to place order. Please try again.");
+            console.error("Checkout error:", error);
+            toast.error("Checkout failed");
         }
     };
+
 
     const handleDelete = async (id, event) => {
         try {
             event.preventDefault();
             console.log(id)
-            await axios.delete(`http://localhost:3100/cart/deletecart/${id}`, {
+            await axios.delete(`https://gamezone-r2eq.onrender.com/cart/deletecart/${id}`, {
                 headers: { Authorization: "Bearer " + localStorage.getItem("token") }
             });
             setCart(cart.filter(item => item._id !== id));
@@ -234,6 +262,9 @@ const Cart = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className='mb-3'>
+                            <Link to='/' className='text-light'>Continue To Home</Link>
+                        </div>
                         <div className="row">
                             <div className="col-12">
                                 <div className="cr-cart-content" data-aos="fade-up" data-aos-duration={2000} data-aos-delay={400}>
@@ -252,7 +283,8 @@ const Cart = () => {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {
+                                                        {cart && cart.length > 0 ?
+
                                                             cart?.map((item) => (
                                                                 <>
                                                                     <tr key={item._id}>
@@ -288,7 +320,11 @@ const Cart = () => {
                                                                     </tr>
                                                                 </>
 
-                                                            ))
+                                                            )) : <tr>
+                                                                <td colSpan="6" className="text-center text-light bg-transparent">
+                                                                    No Record Found
+                                                                </td>
+                                                            </tr>
                                                         }
                                                     </tbody >
                                                 </table>
@@ -298,10 +334,15 @@ const Cart = () => {
                                                 <div className="col-lg-12">
                                                     <div className="cr-cart-update-bottom">
                                                         {/* <a href="javascript:void(0)" className="cr-links">Continue Shopping</a> */}
-                                                        <Link to='/' className='text-light'>Continue To Home</Link>
-                                                        <button className="cr-button" onClick={(e) => handlePayment(e)}>
-                                                            Payment
-                                                        </button>
+
+                                                        {
+                                                            cart && cart.length > 0 && (
+                                                                <button className="cr-button" onClick={handleCheckout}>
+                                                                    Payment
+                                                                </button>
+                                                            )
+                                                        }
+
                                                     </div>
                                                 </div>
                                             </div>

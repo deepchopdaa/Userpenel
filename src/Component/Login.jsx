@@ -33,7 +33,7 @@ const Login = () => {
     const handleLogin = async (values) => {
         console.log(values);
         try {
-            let res = await axios.post("http://localhost:3100/auth/login", values);
+            let res = await axios.post("https://gamezone-r2eq.onrender.com/auth/login", values);
             console.log(res.data.token);
             const token = res.data.token;
             if (token !== undefined) {
@@ -76,7 +76,7 @@ const Login = () => {
                 </div>
             </section> */}
             {/* Login Section */}
-            <Header/>
+            <Header />
             <section className="login-section">
                 <div className="container">
                     <div className="row">
@@ -98,7 +98,7 @@ const Login = () => {
                                             .required("Required password"),
                                     })}
                                     onSubmit={handleLogin}
-                                >   
+                                >
                                     {({ handleSubmit }) => (
                                         <Form className="login-form" onSubmit={handleSubmit}>
                                             <div className="login-form-group">

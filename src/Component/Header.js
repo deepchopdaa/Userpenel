@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faHome, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faHome, faBars, faTimes, faInfoCircle, faAddressCard } from '@fortawesome/free-solid-svg-icons'; // Added new icons
 import './Header.css';
 
 const Header = () => {
@@ -28,6 +28,10 @@ const Header = () => {
         setMenuOpen(false);
         navigate("/userDetail");
     };
+    const UserTickets = () => {
+        setMenuOpen(false);
+        navigate("/UserTickets");
+    };
 
     const renderMenuItems = () => (
         <>
@@ -38,12 +42,12 @@ const Header = () => {
             </li>
             <li>
                 <NavLink to="/contactus" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} onClick={() => setMenuOpen(false)}>
-                    <i class="fa-solid fa-address-book" /><span>Contact Us</span>
+                    <FontAwesomeIcon icon={faAddressCard} /> <span>Contact Us</span>
                 </NavLink>
             </li>
             <li>
                 <NavLink to="/aboutus" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} onClick={() => setMenuOpen(false)}>
-                    About Us
+                    <FontAwesomeIcon icon={faInfoCircle} /> <span>About Us</span>
                 </NavLink>
             </li>
             <li>
@@ -51,35 +55,26 @@ const Header = () => {
                     <i className="ri ri-shopping-cart-line" /> <span>Ticket Menu</span>
                 </NavLink>
             </li>
-            <li>
-                <li className="nav-item dropdown">
-                    <div className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i className="ri-user-3-line" /> <span>Account</span>
-                    </div>
-                    <ul className="dropdown-menu cs-item">
-                        <li>
-                            <div onClick={User} className="dropdown-item text-light ">
-                                <i className="ri-user-3-line" /> User Detail
-                            </div>
-                        </li>
-                        <li>
-                            <div onClick={Logout} className="dropdown-item text-light ">
-                                <FontAwesomeIcon icon={faSignOutAlt} /> Logout
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </li>
-            {/*  <li className="nav-item">
-                <div className="nav-link" onClick={User}>
-                    <i className="ri ri-user-3-line" /> <span>User Detail</span>
+            <li className="nav-item dropdown">
+                <div className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i className="ri-user-3-line" /> <span>Account</span>
                 </div>
+                <ul className="dropdown-menu cs-item">
+                    <li>
+                        <div onClick={User} className="dropdown-item text-light ">
+                            <i className="ri-user-3-line" /> User Detail
+                        </div>
+                        <div onClick={UserTickets} className="dropdown-item text-light ">
+                            <i className="ri-user-3-line" /> UserTickets
+                        </div>
+                    </li>
+                    <li>
+                        <div onClick={Logout} className="dropdown-item text-light ">
+                            <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+                        </div>
+                    </li>
+                </ul>
             </li>
-            <li className="nav-item">
-                <div className="nav-link" onClick={Logout}>
-                    <FontAwesomeIcon icon={faSignOutAlt} /> Logout
-                </div>
-            </li> */}
             {!localStorage.getItem("token") && (
                 <li>
                     <NavLink to="/login" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} onClick={() => setMenuOpen(false)}>
@@ -129,6 +124,7 @@ const Header = () => {
 };
 
 export default Header;
+
 
 
 

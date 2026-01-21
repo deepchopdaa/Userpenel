@@ -45,7 +45,7 @@ const PopularProduct = () => {
     };
 
     const UserGame = async () => {
-        await axios.get("http://localhost:3100/game/getpopulor", {
+        await axios.get("https://gamezone-r2eq.onrender.com/game/getpopulor", {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }
@@ -75,12 +75,12 @@ const PopularProduct = () => {
                     <Slider {...settings}>
                         {
                             game?.map((item) => (
-                                <div className="cr-product-card"  onClick={() => navigate("/", { state: { id: item._id } })} >
+                                <div className="cr-product-card" onClick={() => navigate(`/product/${item._id}`)} >
                                     <div className="cr-product-image">
                                         <div className="cr-product-image">
                                             <div className="cr-image-inner zoom-image-hover">
-                                                <img src={`http://localhost:3100/${item.image}`} alt="product-1" />
-                                            </div>  
+                                                <img src={item.image} alt="product-1" />
+                                            </div>
                                             {/* <div className="cr-side-view">
                                                         <a href="javascript:void(0)" className="wishlist">
                                                             <i className="ri-heart-line" />
@@ -119,7 +119,7 @@ const PopularProduct = () => {
                                                     <div className="cr-product-image">
                                                         <div className="cr-product-image">
                                                             <div className="cr-image-inner zoom-image-hover">
-                                                                <img src={`http://localhost:3100/${item.image}`} alt="product-1" />
+                                                                <img src={item.image} alt="product-1" />
                                                             </div>
                                                             
                                                             <p className="cr-shopping-bag" onClick={() => navigate("/product", { state: { id: item._id } })}><i className="ri-shopping-bag-line" /></p>
